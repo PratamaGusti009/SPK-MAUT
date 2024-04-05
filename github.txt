@@ -1,0 +1,8 @@
+// Step Pertama 
+$ git add .
+
+// Step Kedua
+$ git commit -m "......"
+
+// Step Ketiga
+$ git push

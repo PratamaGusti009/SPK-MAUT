@@ -1,24 +1,59 @@
 <?php
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Syarat extends CI_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("M_Syarat");
+        $this->load->model('M_Syarat');
     }
 
     public function index()
     {
         $data['title'] = 'Kriteria';
         $data['user'] = $this->db->get_where('admin', [
-            'email' =>
-                $this->session->userdata('email')
+            'email' => $this->session->userdata('email'),
         ])->row_array();
+        // Ambil data kriteria dari model
+        $kriterias = $this->M_Syarat->get_all_kriteria()->result_array();
 
-        $data['_kriteria'] = $this->M_Syarat->get_all_kriteria()->result_array();
+        // Inisialisasi array untuk menyimpan bobot
+        $bobot_array = [];
+
+        // Menghitung total bobot dan menyimpan bobot ke dalam array baru
+        $total = 0;
+        foreach ($kriterias as $item) {
+            // Menggunakan is_numeric untuk memeriksa apakah nilai bobot berisi angka
+            if (is_numeric($item['bobot'])) {
+                // Menyimpan nilai bobot ke dalam array baru
+                $bobot_array[] = $item['bobot'];
+                // Menjumlahkan bobot
+                $total += $item['bobot'];
+            }
+        }
+
+        // Menghitung nilai normalisasi dan menyimpannya dalam array baru
+        $hasil_normalisasi = [];
+        foreach ($bobot_array as $value) {
+            // Menghitung nilai rata-rata normalisasi
+            $average = $value / $total;
+            // Menambahkan nilai yang telah diformat ke dalam array baru
+            $hasil_normalisasi[] = (float) number_format($average, 4);
+        }
+
+        // Menambahkan nilai normalisasi ke dalam data kriteria
+        for ($i = 0; $i < count($kriterias); ++$i) {
+            $kriterias[$i]['nilai_normalisasi'] = $hasil_normalisasi[$i];
+        }
+
+        // Mengirimkan data ke view
+        $data['nilai_normalisasi'] = $hasil_normalisasi;
+        $data['_kriteria'] = $kriterias;
+
+        // var_dump($data['kriterias'] = $kriterias);
+        // exit;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_admin', $data);
@@ -27,13 +62,12 @@ class Syarat extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    //menampilkan view create
+    // menampilkan view create
     public function create()
     {
         $data['title'] = 'Kriteria';
         $data['user'] = $this->db->get_where('admin', [
-            'email' =>
-                $this->session->userdata('email')
+            'email' => $this->session->userdata('email'),
         ])->row_array();
 
         $this->load->view('templates/header', $data);
@@ -43,19 +77,19 @@ class Syarat extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    //menambahkan data ke database
+    // menambahkan data ke database
     public function store()
     {
         $this->_rules();
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == false) {
             $this->create();
         } else {
-            $data = array(
+            $data = [
                 'keterangan' => $this->input->post('keterangan'),
                 'kode_kriteria' => $this->input->post('kode_kriteria'),
                 'bobot' => $this->input->post('bobot'),
-            );
+            ];
 
             $this->M_Syarat->insert($data, 'kriteria');
             $this->session->set_flashdata('Pesan', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -77,12 +111,12 @@ class Syarat extends CI_Controller
     {
         $this->load->model('M_Syarat');
 
-        $data = array(
+        $data = [
             // 'id_alternatif' => $this->input->post(id_alternatif),
             'keterangan' => $this->input->post('keterangan'),
             'kode_kriteria' => $this->input->post('kode_kriteria'),
             'bobot' => $this->input->post('bobot'),
-        );
+        ];
 
         $result = $this->M_Syarat->update_kriteria($data, $id);
         $this->session->set_flashdata('Pesan', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -101,7 +135,12 @@ class Syarat extends CI_Controller
             redirect('Syarat');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Dihapus!</div>');
-
         }
+    }
+
+    public function totalnilai()
+    {
+        $data['total'] = $this->M_Syarat->sum_kriteria(); // Mendapatkan nilai total dan menyimpannya dalam array $data
+        $this->load->view('syarat/index', $data); // Memuat view sambil mengirimkan data
     }
 }

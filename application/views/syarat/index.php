@@ -26,7 +26,7 @@
                                         <th>Kode Kriteria</th>
                                         <th>Nama Kriteria</th>
                                         <th>Bobot</th>
-                                        <th>Bobot normalisasi</th>
+                                        <th>Bobot Normalisasi</th>
 
                                         <th width="15%">Aksi</th>
                                     </tr>

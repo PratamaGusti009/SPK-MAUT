@@ -19,12 +19,47 @@ class Perhitungan extends CI_Controller
             'email' => $this->session->userdata('email'),
         ])->row_array();
 
+        // Ambil data kriteria dari model
+        $kriterias = $this->M_Perhitungan->get_kriteria()->result_array();
+
+        // Inisialisasi array untuk menyimpan bobot
+        $bobot_array = [];
+
+        // Menghitung total bobot dan menyimpan bobot ke dalam array baru
+        $total = 0;
+        foreach ($kriterias as $item) {
+            // Menggunakan is_numeric untuk memeriksa apakah nilai bobot berisi angka
+            if (is_numeric($item['bobot'])) {
+                // Menyimpan nilai bobot ke dalam array baru
+                $bobot_array[] = $item['bobot'];
+                // Menjumlahkan bobot
+                $total += $item['bobot'];
+            }
+        }
+
+        // Menghitung nilai normalisasi dan menyimpannya dalam array baru
+        $hasil_normalisasi = [];
+        foreach ($bobot_array as $value) {
+            // Menghitung nilai rata-rata normalisasi
+            $average = $value / $total;
+            // Menambahkan nilai yang telah diformat ke dalam array baru
+            $hasil_normalisasi[] = (float) number_format($average, 4);
+        }
+
+        // Menambahkan nilai normalisasi ke dalam data kriteria
+        for ($i = 0; $i < count($kriterias); ++$i) {
+            $kriterias[$i]['nilai_normalisasi'] = $hasil_normalisasi[$i];
+        }
+
+        // Mengirimkan data ke view
+        $data['nilai_normalisasi'] = $hasil_normalisasi;
+        $data['kriteria'] = $kriterias;
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_admin', $data);
         $this->load->view('templates/topbar', $data);
 
         $data = [
-            'kriteria' => $this->M_Perhitungan->get_kriteria(),
             'alternatif' => $this->M_Perhitungan->get_alternatif(),
         ];
 

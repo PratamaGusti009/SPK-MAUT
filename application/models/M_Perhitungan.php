@@ -13,9 +13,7 @@ class M_Perhitungan extends CI_Model
 
     public function get_kriteria()
     {
-        $query = $this->db->get('kriteria');
-
-        return $query->result();
+        return $this->db->get('kriteria');
     }
 
     public function get_alternatif()

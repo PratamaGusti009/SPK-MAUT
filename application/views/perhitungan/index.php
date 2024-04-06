@@ -24,17 +24,17 @@
                                         <table class="table table-bordered" width="100%" cellspacing="0">
                                             <thead class="bg-primary text-white">
                                                 <tr align="center">
-                                                    <?php foreach ($kriteria as $key) { ?>
-                                                    <th><?php echo $key->keterangan; ?></th>
+                                                    <?php foreach ($kriteria as $data) { ?>
+                                                    <th><?php echo $data['keterangan']; ?></th>
                                                     <?php } ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr align="center">
-                                                    <?php foreach ($kriteria as $key) { ?>
+                                                    <?php foreach ($kriteria as $data) { ?>
                                                     <td>
                                                     <?php
-                                                    echo $key->bobot;
+                                                    echo $data['nilai_normalisasi'];
                                                         ?>
                                                     </td>
                                                     <?php } ?>
@@ -57,8 +57,8 @@
                                         <tr align="center">
                                             <th width="5%">No</th>
                                             <th>Alternatif</th>
-                                            <?php foreach ($kriteria as $key) { ?>
-                                            <th><?php echo $key->kode_kriteria; ?></th>
+                                            <?php foreach ($kriteria as $data) { ?>
+                                            <th><?php echo $data['kode_kriteria']; ?></th>
                                             <?php } ?>
                                         </tr>
                                     </thead>
@@ -69,10 +69,10 @@
                                         <tr align="center">
                                             <td><?php echo $no; ?></td>
                                             <td align="left"><?php echo $keys['nama']; ?></td>
-                                            <?php foreach ($kriteria as $key) { ?>
+                                            <?php foreach ($kriteria as $data) { ?>
                                                 <td>
                                                     <?php
-                                                                    $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $key->id_kriteria);
+                                                $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $data['id_kriteria']);
                                                 // Menggunakan null coalescing operator ?? untuk memberikan nilai default '0' jika nilai tidak ditemukan
                                                 echo $data_pencocokan['nilai'] ?? '-';
                                                 ?>
@@ -86,10 +86,10 @@
 
                                     <tr align="center" class="bg-light">
                                         <th colspan="2">Nilai A+</th>
-                                        <?php foreach ($kriteria as $key) { ?>
+                                        <?php foreach ($kriteria as $data) { ?>
                                         <th>
                                         <?php
-                                            $nilai_max = $this->M_Perhitungan->get_max_min($key->id_kriteria);
+                                            $nilai_max = $this->M_Perhitungan->get_max_min($data['id_kriteria']);
                                             echo $nilai_max['max'];
                                             ?>
                                         </th>
@@ -97,10 +97,10 @@
                                     </tr>
                                     <tr align="center" class="bg-light">
                                         <th colspan="2">Nilai A-</th>
-                                        <?php foreach ($kriteria as $key) { ?>
+                                        <?php foreach ($kriteria as $data) { ?>
                                         <th>
                                         <?php
-                                            $nilai_min = $this->M_Perhitungan->get_max_min($key->id_kriteria);
+                                            $nilai_min = $this->M_Perhitungan->get_max_min($data['id_kriteria']);
                                             echo $nilai_min['min'];
                                             ?>
                                         </th>
@@ -124,9 +124,9 @@
                                             <thead class="bg-primary text-white">
                                                 <tr align="center">
                                                     <th width="5%">No</th>
-                                                    <th>Nama Alternatif</th>
-                                                    <?php foreach ($kriteria as $key) { ?>
-                                                    <th><?php echo $key->kode_kriteria; ?></th>
+                                                    <th>Alternatif</th>
+                                                    <?php foreach ($kriteria as $data) { ?>
+                                                    <th><?php echo $data['kode_kriteria']; ?></th>
                                                     <?php } ?>
                                                 </tr>
                                             </thead>
@@ -141,8 +141,8 @@
                                                     <td>
                                                     <?php
 
-                                                    $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $key->id_kriteria);
-                                                        $min_max = $this->M_Perhitungan->get_max_min($key->id_kriteria);
+                                                    $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $key['id_kriteria']);
+                                                        $min_max = $this->M_Perhitungan->get_max_min($key['id_kriteria']);
                                                         $hasil = @round(($data_pencocokan['nilai'] - $min_max['min']) / ($min_max['max'] - $min_max['min']), 2);
                                                         echo $hasil;
                                                         ?>
@@ -187,11 +187,11 @@
                                                     <td>SUM
                                                     <?php
                                                     $nilai_total = 0;
-                                                        foreach ($kriteria as $key) {
-                                                            $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $key->id_kriteria);
-                                                            $min_max = $this->M_Perhitungan->get_max_min($key->id_kriteria);
-                                                            $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $key->id_kriteria);
-                                                            $min_max = $this->M_Perhitungan->get_max_min($key->id_kriteria);
+                                                        foreach ($kriteria as $data) {
+                                                            $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $data['id_kriteria']);
+                                                            $min_max = $this->M_Perhitungan->get_max_min($data['id_kriteria']);
+                                                            $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $data['id_kriteria']);
+                                                            $min_max = $this->M_Perhitungan->get_max_min($data['id_kriteria']);
                                                             // Periksa apakah penyebut (denominator) pembagian tidak nol
                                                             $denominator = ($min_max['max'] - $min_max['min']);
                                                             if ($denominator != 0) {
@@ -201,7 +201,7 @@
                                                                 $hasil_normalisasi = 0; // Atau atur nilai lain sesuai kebutuhan
                                                             }
 
-                                                            $bobot = $key->bobot;
+                                                            $bobot = $data['nilai_normalisasi'];
                                                             $nilai_total += $bobot * $hasil_normalisasi;
 
                                                             echo '('.$bobot.'x'.$hasil_normalisasi.') ';

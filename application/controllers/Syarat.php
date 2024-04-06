@@ -137,10 +137,4 @@ class Syarat extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Dihapus!</div>');
         }
     }
-
-    public function totalnilai()
-    {
-        $data['total'] = $this->M_Syarat->sum_kriteria(); // Mendapatkan nilai total dan menyimpannya dalam array $data
-        $this->load->view('syarat/index', $data); // Memuat view sambil mengirimkan data
-    }
 }

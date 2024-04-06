@@ -42,12 +42,4 @@ class M_Syarat extends CI_Model
 
         return $this->db->delete('kriteria');
     }
-
-    public function sum_kriteria()
-    {
-        $this->db->select_sum('bobot'); // nilai adalah nama kolom yang ingin Anda jumlahkan
-        $query = $this->db->get('kriteria'); // ganti nama_tabel dengan nama tabel Anda
-
-        return $query->row()->bobot;
-    }
 }

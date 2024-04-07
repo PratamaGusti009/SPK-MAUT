@@ -48,19 +48,10 @@
                                 </select>
                             </div>
 
-                            <!-- <div class="form-group col-md-6">
-                                <label class="font-weight-bold">Status</label>
-                                <select name="status" class="form-control" placeholder="Pilih Status" required>
-                                    <option value="Menikah">Menikah</option>
-                                    <option value="Janda - Duda">Janda - Duda</option>
-                                    <option value="Belum Menikah">Belum Menikah</option>
-                                </select>
-                            </div> -->
-
                             <div class="form-group col-md-6">
                                 <label class="font-weight-bold">Departemen Yang Didaftar</label>
                                 <select name="departemen" class="form-control" required>
-<option selected >Pilih departemen </option>
+                                <option selected >Pilih Departemen </option>
                                 <?php foreach ($departemens as $item) { ?>
                                 <option value="<?php echo $item['id_departemen']; ?>"><?php echo $item['departemen']; ?></option>
                             <?php } ?>

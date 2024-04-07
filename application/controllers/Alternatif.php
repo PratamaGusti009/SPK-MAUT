@@ -62,9 +62,6 @@ class Alternatif extends CI_Controller
 
         $data['start'] = $this->uri->segment(3);
         $data['alternatif'] = $this->M_Alternatif->getAlternatif($config['per_page'], $data['start']);
-        if ($this->input->post('keyword')) {
-            $data['alternatif'] = $this->M_Alternatif->cariDataAlternatif();
-        }
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_admin', $data);
@@ -176,5 +173,17 @@ class Alternatif extends CI_Controller
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Dihapus!</div>');
         }
+    }
+
+    public function ajax_search()
+    {
+        // Mengambil kata kunci pencarian dari AJAX
+        $keyword = $this->input->post('keyword');
+
+        // Mengambil data dari model berdasarkan kata kunci
+        $result = $this->M_Alternatif->search($keyword);
+
+        // Menyimpan data dalam format JSON
+        echo json_encode($result);
     }
 }

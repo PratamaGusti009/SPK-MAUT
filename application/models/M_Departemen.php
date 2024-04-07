@@ -55,4 +55,27 @@ class M_Departemen extends CI_Model
 
         return $this->db->update('departemen', $data);
     }
+
+    public function search($keyword)
+    {
+        $this->db->like('departemen', $keyword); // Menyesuaikan dengan kolom di tabel Anda
+
+        return $this->db->get('departemen')->result_array();
+    }
+
+    public function getDepartemenNameById($id)
+    {
+        // Ambil data departemen berdasarkan ID
+        $this->db->where('nama_departemen', $id);
+        $query = $this->db->get('departemen');
+
+        // Cek apakah ada data yang ditemukan
+        if ($query->num_rows() > 0) {
+            // Jika ada, kembalikan data dalam bentuk objek
+            return $query->row();
+        } else {
+            // Jika tidak ada data, kembalikan null
+            return null;
+        }
+    }
 }

@@ -46,7 +46,10 @@ class Formulir extends CI_Controller
             $nik = $this->input->post('nik', true);
             $ttl = $this->input->post('ttl', true);
             $jenis_kelamin = $this->input->post('jenis_kelamin', true);
-            $departemen = $this->input->post('departemen', true);
+            $selectedDepartemen = $this->input->post('departemen');
+            $departemenData = explode('|', $selectedDepartemen);
+            $id_departemen = $departemenData[0];
+            $nama_departemen = $departemenData[1];
             $no_telp = $this->input->post('no_telp', true);
             $alamat = $this->input->post('alamat', true);
 
@@ -54,7 +57,8 @@ class Formulir extends CI_Controller
                 'nik' => $nik,
                 'ttl' => $ttl,
                 'jenis_kelamin' => $jenis_kelamin,
-                'departemen' => $departemen,
+                'id_departemen' => $id_departemen,
+                'nama_departemen' => $nama_departemen,
                 'no_telp' => $no_telp,
                 'alamat' => $alamat,
                 'file' => $file,
@@ -72,7 +76,8 @@ class Formulir extends CI_Controller
         $data['title'] = 'Data Pribadi';
         $data['status'] = 0;
         $data['user'] = $this->db->get_where('alternatif', ['email' => $this->session->userdata('email')])->row_array();
-
+        $getDepartemen = $this->M_Departemen->getDataDepartemen();
+        $data['departemens'] = $getDepartemen;
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_user', $data);
         $this->load->view('templates/topbar', $data);
@@ -86,7 +91,8 @@ class Formulir extends CI_Controller
         $data['user'] = $this->db->get_where('alternatif', [
             'email' => $this->session->userdata('email'),
         ])->row_array();
-
+        $getDepartemen = $this->M_Departemen->getDataDepartemen();
+        $data['departemens'] = $getDepartemen;
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_user', $data);
         $this->load->view('templates/topbar', $data);

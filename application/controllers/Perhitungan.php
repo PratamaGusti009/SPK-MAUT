@@ -78,7 +78,7 @@ class Perhitungan extends CI_Controller
         $this->load->view('templates/sidebar_admin', $data);
         $this->load->view('templates/topbar', $data);
 
-        $kriteria = $this->M_Perhitungan->get_kriteria();
+        $kriteria = $this->M_Perhitungan->get_kriteria()->result_array();
         $alternatif = $this->M_Perhitungan->get_alternatif();
         $hasil_akhir = $this->M_Perhitungan->get_hasil();
         $hasil_ = $this->M_Perhitungan->get_hasil_join_alternatif();
@@ -89,11 +89,11 @@ class Perhitungan extends CI_Controller
             $nilai_total = 0;
             foreach ($kriteria as $key) {
                 // Cek apakah data nilai cocok untuk kriteria dan alternatif yang diberikan
-                $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $key->id_kriteria);
+                $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $key['id_kriteria']);
 
                 // Jika data_pencocokan tidak null (artinya data ditemukan), lanjutkan perhitungan
                 if ($data_pencocokan !== null) {
-                    $min_max = $this->M_Perhitungan->get_max_min($key->id_kriteria);
+                    $min_max = $this->M_Perhitungan->get_max_min($key['id_kriteria']);
                     $denominator = ($min_max['max'] - $min_max['min']);
                     if ($denominator != 0) {
                         $hasil_normalisasi = round(($data_pencocokan['nilai'] - $min_max['min']) / $denominator, 4);

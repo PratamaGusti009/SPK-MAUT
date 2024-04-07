@@ -36,7 +36,7 @@
                                 ?>
                                     <tr align="center">
                                         <td><?php echo $no; ?></td>
-                                        <td><?php echo $data['departemen']; ?></td>
+                                        <td><?php echo $data['nama_departemen']; ?></td>
                                         <td><?php echo $data['nilai_batas']; ?></td>
                                         <td><?php echo $data['jumlah_penerimaan']; ?></td>
                                         <td>
@@ -65,7 +65,7 @@
                                                         
                                                         <div class="form-group col-md-6">
                                                             <label class="font-weight-bold">Nama Departemen</label>
-                                                            <input autocomplete="off" type="text" name="departemen" value="<?php echo $data['departemen']; ?>" required class="form-control"/>
+                                                            <input autocomplete="off" type="text" name="departemen" value="<?php echo $data['nama_departemen']; ?>" required class="form-control"/>
                                                         </div>
 
                                                         <div class="form-group col-md-6">

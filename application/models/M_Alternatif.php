@@ -4,7 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_Alternatif extends CI_Model
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -12,12 +11,13 @@ class M_Alternatif extends CI_Model
 
     public function get_all_alternatif()
     {
-        return $this->db->get("alternatif")->result_array();
+        return $this->db->get('alternatif')->result_array();
     }
 
     public function insert($data = [])
     {
         $result = $this->db->insert('alternatif', $data);
+
         return $result;
     }
 
@@ -25,18 +25,21 @@ class M_Alternatif extends CI_Model
     {
         $this->db->where('id_alternatif', $id_alternatif);
         $query = $this->db->get('alternatif');
+
         return $query->row();
     }
 
     public function update_alternatif($data, $id)
     {
         $this->db->where('id_alternatif', $id);
+
         return $this->db->update('alternatif', $data);
     }
 
     public function delete_alternatif($id)
     {
         $this->db->where('id_alternatif', $id);
+
         return $this->db->delete('alternatif');
     }
 
@@ -51,21 +54,27 @@ class M_Alternatif extends CI_Model
         return $this->db->get('alternatif', $limit, $start)->result_array();
     }
 
-    public function cariDataAlternatif()
-    {
-        $keyword = $this->input->post('keyword', true);
+    // public function cariDataAlternatif()
+    // {
+    //     $keyword = $this->input->post('keyword', true);
 
-        // Gunakan WHERE untuk pencarian yang lebih tepat
+    //     // Gunakan WHERE untuk pencarian yang lebih tepat
+    //     $this->db->like('nama', $keyword);
+    //     $this->db->or_like('nik', $keyword);
+    //     $this->db->or_like('departemen', $keyword);
+
+    //     // Jalankan kueri dan kembalikan hasilnya dalam bentuk array
+    //     $result = $this->db->get('alternatif');
+
+    //     return $result->result_array();
+    // }
+
+    public function search($keyword)
+    {
         $this->db->like('nama', $keyword);
         $this->db->or_like('nik', $keyword);
-        $this->db->or_like('departemen', $keyword);
+        $this->db->or_like('nama_departemen', $keyword); // Menyesuaikan dengan kolom di tabel Anda
 
-        // Jalankan kueri dan kembalikan hasilnya dalam bentuk array
-        $result = $this->db->get('alternatif');
-
-        return $result->result_array();
+        return $this->db->get('alternatif')->result_array();
     }
-
-
 }
-

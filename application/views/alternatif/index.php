@@ -12,6 +12,7 @@
                 <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-users"></i> Data Alternatif</h1>
                 <!-- <a href="<?php echo base_url('alternatif/create'); ?>" class="btn btn-primary"> <i class="fa fa-plus"></i>
                     Tambah Data </a> -->
+                    
             </div>
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
@@ -20,14 +21,11 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-end">
-                        <form action="" method="post">
+                        <form action="" method="post" class="form-inline mr-auto w-100 navbar-search">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Search" name="keyword"
-                                    autocomplete="off" autofocus>
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit" id="submit" name="submit"> Search
-                                    </button>
-                                </div>
+                                <input type="text" class="form-control bg-light border-0 small"
+                                    id="search_input" placeholder="Search..." aria-label="Search"
+                                    aria-describedby="basic-addon2">
                             </div>
                         </form>
                     </div>
@@ -42,7 +40,7 @@
                                     <th width="15%">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody  id="search_results">
 
                                 <?php
                                 $no = 1;
@@ -60,27 +58,14 @@
                                             <?php echo $data['nik']; ?>
                                         </td>
                                         <td>
-                                        <?php
-                                // Panggil fungsi untuk mendapatkan data departemen berdasarkan ID
-                                $departemen = $this->M_Departemen->getDataDepartemenById($data['departemen']);
-
-                    // Periksa apakah data departemen berhasil ditemukan
-                    if ($departemen !== null) {
-                        // Jika berhasil ditemukan, tampilkan nama departemen
-                        echo $departemen->departemen;
-                    } else {
-                        // Jika tidak ditemukan, tampilkan pesan alternatif atau kosong
-                        echo 'Departemen belum ditentukan'; // atau echo "";
-                    }
-                    ?>
+                                            <?php echo $data['nama_departemen']; ?>
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a data-toggle="tooltip" data-placement="bottom" title="Detail Data"
                                                     href="<?php echo base_url('Alternatif/detail/'.$data['id_alternatif']); ?>"
                                                     class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>
-                                                <!-- <a data-toggle="modal" data-target="#edit<?php echo $data['id_alternatif']; ?>"
-                                                    class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a> -->
+                                               
                                                 <a data-toggle="tooltip" data-placement="bottom" title="Hapus Data"
                                                     href="<?php echo base_url('Alternatif/destroy/'.$data['id_alternatif']); ?>"
                                                     onclick="return confirm ('Apakah anda yakin untuk meghapus data ini')"
@@ -94,9 +79,59 @@
                     ++$no;
                 }
                 ?>
+                
                             </tbody>
                         </table>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        <script>
+                           $(document).ready(function(){
+    // Simpan data asli tabel saat halaman dimuat
+    var originalData = $('#search_results').html();
+
+    $('#search_input').keyup(function(){
+        var keyword = $(this).val();
+        if(keyword != ''){
+            $.ajax({
+                url: '<?php echo base_url('Alternatif/ajax_search'); ?>',
+                type: 'POST',
+                data: {keyword:keyword},
+                success:function(data){
+                    var result = JSON.parse(data);
+                    var html = '';
+                    if (result.length > 0) {
+                        $.each(result, function(index, value){
+                            html += '<tr align="center">';
+                            html += '<td>' + (index + 1) + '</td>';
+                            html += '<td>' + value.nama + '</td>';
+                            html += '<td>' + value.nik + '</td>';
+                            html += '<td>' + value.nama_departemen + '</td>';
+                            html += '<td>';
+                            html += '<div class="btn-group" role="group">';
+                            html += '<a data-toggle="tooltip" data-placement="bottom" title="Detail Data" href="<?php echo base_url('Alternatif/detail/'); ?>' + value.id_alternatif + '" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>';
+                            html += '<a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="<?php echo base_url('Alternatif/destroy/'); ?>' + value.id_alternatif + '" onclick="return confirm(\'Apakah anda yakin untuk menghapus data ini\')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>';
+                            html += '</div>';
+                            html += '</td>';
+                            html += '</tr>';
+                        });
+                    } else {
+                        html += '<tr><td colspan="5" style="text-align: center; font-weight: bold;">Data tidak ditemukan</td></tr>';
+                    }
+                    $('#search_results').html(html);
+                }
+            });
+        } else {
+            // Kembalikan tampilan asli tabel
+            $('#search_results').html(originalData);
+        }
+    });
+});
+
+
+                        </script>
+
+
                         <?php echo $this->pagination->create_links(); ?>
+                        
                     </div>
                 </div>
 

@@ -158,7 +158,7 @@ class Penilaian extends CI_Controller
             $this->M_Penilaian->tambah_penilaian($id_alternatif, $id_kriteria[$index], $key);
         }
 
-        redirect('formulir/detail');
+        redirect('formulir/detailPenilaian');
     }
 
     // update peneilaian public
@@ -174,6 +174,6 @@ class Penilaian extends CI_Controller
             $this->M_Penilaian->edit_penilaian($id_alternatif, '25', $nilai[0]);
         }
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diupdate!</div>');
-        redirect('formulir/detail');
+        redirect('formulir/detailPenilaian');
     }
 }

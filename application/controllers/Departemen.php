@@ -16,13 +16,13 @@ class Departemen extends CI_Controller
     {
         if ($this->input->method() == 'post') {
             // Ambil data yang dikirimkan melalui form
-            $departemen = $this->input->post('departemen', true);
+            $nama_departemen = $this->input->post('nama_departemen', true);
             $nilai_batas = $this->input->post('nilai_batas', true);
             $jumlah_penerimaan = $this->input->post('jumlah_penerimaan', true);
 
             // Data untuk ditambahkan
             $dataInsert = [
-                'departemen' => $departemen,
+                'nama_departemen' => $nama_departemen,
                 'nilai_batas' => $nilai_batas,
                 'jumlah_penerimaan' => $jumlah_penerimaan,
                 // Tambahkan field lain sesuai kebutuhan
@@ -35,7 +35,7 @@ class Departemen extends CI_Controller
                 <strong>Selamat!</strong> Departemen Berhasil Ditambah! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button></div>');
                 // Jika data berhasil ditambahkan, redirect ke halaman yang sesuai
-                redirect('/Departemen/index');
+                redirect('/Departemen/list_departemen');
             } else {
                 // Jika gagal, tampilkan pesan error atau lakukan sesuatu yang sesuai dengan kebutuhan Anda
                 echo 'Gagal menambahkan data departemen.';

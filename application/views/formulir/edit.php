@@ -57,15 +57,12 @@
                             <div class="form-group col-md-6">
                                 <label class="font-weight-bold">Departemen Yang Didaftar</label>
                                 <select name="departemen" class="form-control" required>
-                                    <option value="Marketing" <?php if ($user['departemen'] == 'Marketing') {
-                                        echo 'selected';
-                                    } ?>>Marketing</option>
-                                    <option value="Operasional" <?php if ($user['departemen'] == 'Operasional') {
-                                        echo 'selected';
-                                    } ?>>Operasional</option>
-                                    <option value="Finansial" <?php if ($user['departemen'] == 'Finansial') {
-                                        echo 'selected';
-                                    } ?>>Finansial</option>
+                                <option selected >Pilih Departemen </option>
+                                <?php foreach ($departemens as $item) { ?>
+                                    <option value="<?php echo $item['id_departemen'].'|'.$item['nama_departemen']; ?>">
+                                        <?php echo $item['nama_departemen']; ?>
+                                    </option>
+                                <?php } ?>
                                 </select>
                             </div>
 

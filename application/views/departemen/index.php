@@ -22,8 +22,8 @@
             <form action='' method='POST'>
             <div class="card-body">
                 <div class="form-group">
-                  <label for="">Departemen</label>
-                  <input required type="text" class="form-control" id="departemen" name="departemen" placeholder="Masukkan nama departemen">
+                  <label for="">Nama Departemen</label>
+                  <input required type="text" class="form-control" id="departemen" name="nama_departemen" placeholder="Masukkan nama departemen">
                 </div>
 
                   <div class="form-group">

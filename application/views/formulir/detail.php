@@ -62,20 +62,17 @@
                                 <tr>
                                     <th>Departemen</th>
                                     <td>
-    <?php
-    // Panggil fungsi untuk mendapatkan data departemen berdasarkan ID
-    $departemen = $this->M_Departemen->getDataDepartemenById($user['departemen']);
-
-                // Periksa apakah data departemen berhasil ditemukan
-                if ($departemen !== null) {
-                    // Jika berhasil ditemukan, tampilkan nama departemen
-                    echo $departemen->departemen;
-                } else {
-                    // Jika tidak ditemukan, tampilkan pesan alternatif atau kosong
-                    echo 'Departemen tidak ditemukan'; // atau echo "";
-                }
+                                        <?php
+                                        // Periksa apakah data departemen berhasil ditemukan dan tidak kosong
+                                        if ($user !== null && isset($user['nama_departemen']) && !empty($user['nama_departemen'])) {
+                                            // Jika berhasil ditemukan dan tidak kosong, tampilkan nama departemen
+                                            echo $user['nama_departemen'];
+                                        } else {
+                                            // Jika tidak ditemukan atau kosong, tampilkan pesan alternatif
+                                            echo 'Departemen tidak ditemukan';
+                                        }
                 ?>
-</td>
+                                    </td>
 
                                 </tr>
 

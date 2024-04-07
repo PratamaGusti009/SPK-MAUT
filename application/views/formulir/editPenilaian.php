@@ -24,15 +24,15 @@
                 <?php } else { ?>
                   
                     <!-- FORM -->
-   <?php echo form_open('Penilaian/update_penilaian_public'); ?>
-                                                <div class="p-3">
-                                                <?php foreach ($kriteria as $key) { ?>
+                <?php echo form_open('Penilaian/update_penilaian_public'); ?>
+                    <div class="p-3">
+                    <?php foreach ($kriteria as $key) { ?>
     <?php
     // Mengambil data sub kriteria
     $sub_kriteria = $this->M_Penilaian->data_sub_kriteria($key->id_kriteria);
-                                                    // var_dump($sub_kriteria);
-                                                    // exit;
-                                                    ?>
+                        // var_dump($sub_kriteria);
+                        // exit;
+                        ?>
     <?php if ($sub_kriteria != null) { ?>
         <input type="text" name="id_alternatif" value="<?php echo $user['id_alternatif']; ?>" hidden>
         <input type="text" name="id_kriteria[]" value="<?php echo $key->id_kriteria; ?>" hidden>
@@ -44,11 +44,11 @@
                 <select <?php echo $key->keterangan === 'Nilai Test' ? 'disabled' : ''; ?> name="<?php echo $key->keterangan.' ('.$key->kode_kriteria.')'; ?>" class="form-control" id="<?php echo $key->id_kriteria; ?>" required>
                     <option value="">--Pilih--</option>
                     <?php
-                                                                    // Menampilkan opsi untuk setiap sub kriteria
-                                                                    foreach ($sub_kriteria as $subs_kriteria) {
-                                                                        // Mendapatkan nilai terpilih (jika ada)
-                                                                        $s_option = $this->M_Penilaian->data_penilaian($user['id_alternatif'], $subs_kriteria['id_kriteria']);
-                                                                        ?>
+                                        // Menampilkan opsi untuk setiap sub kriteria
+                                        foreach ($sub_kriteria as $subs_kriteria) {
+                                            // Mendapatkan nilai terpilih (jika ada)
+                                            $s_option = $this->M_Penilaian->data_penilaian($user['id_alternatif'], $subs_kriteria['id_kriteria']);
+                                            ?>
                         <option value="<?php echo $subs_kriteria['id_sub_kriteria']; ?>" <?php if ($subs_kriteria['id_sub_kriteria'] == $s_option['nilai']) {
                             echo 'selected';
                         } ?>>

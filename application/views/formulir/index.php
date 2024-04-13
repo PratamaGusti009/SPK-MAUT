@@ -53,8 +53,10 @@
                                 <select name="departemen" class="form-control" required>
                                 <option selected >Pilih Departemen </option>
                                 <?php foreach ($departemens as $item) { ?>
-                                <option value="<?php echo $item['id_departemen']; ?>"><?php echo $item['departemen']; ?></option>
-                            <?php } ?>
+                                    <option value="<?php echo $item['id_departemen'].'|'.$item['nama_departemen']; ?>">
+                                        <?php echo $item['nama_departemen']; ?>
+                                    </option>
+                                <?php } ?>
                                 </select>
                             </div>
 

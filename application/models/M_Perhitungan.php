@@ -41,7 +41,12 @@ class M_Perhitungan extends CI_Model
 
     public function get_hasil()
     {
-        $query = $this->db->query('SELECT * FROM hasil ORDER BY nilai DESC;');
+        $query = $this->db->query('
+        SELECT hasil.*, alternatif.status
+        FROM hasil
+        INNER JOIN alternatif ON hasil.id_alternatif = alternatif.id_alternatif
+        ORDER BY hasil.nilai DESC;
+    ');
 
         return $query->result();
     }

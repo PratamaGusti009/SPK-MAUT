@@ -20,18 +20,17 @@
                     <h6 class="m-0 font-weight-bold text-primary">Daftar Data Alternatif</h6>
                 </div>
                 <div class="card-body">
-                    <div class="d-flex justify-content-end">
-                        <form action="" method="post" class="form-inline mr-auto w-100 navbar-search">
+                <div class="d-flex justify-content-end">
+                        <form action="" method="post">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control bg-light border-0 small"
-                                    id="search_input" placeholder="Search..." aria-label="Search"
-                                    aria-describedby="basic-addon2">
+                                <input type="text" class="form-control" placeholder="Search" id="search_input"
+                                    autocomplete="off" autofocus>
                             </div>
                         </form>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="bg-primary text-white">
+                            <thead>
                                 <tr align="center">
                                     <th width="5%">No</th>
                                     <th>Nama</th>
@@ -58,7 +57,16 @@
                                             <?php echo $data['nik']; ?>
                                         </td>
                                         <td>
-                                            <?php echo $data['nama_departemen']; ?>
+                                        <?php
+                                            // Memeriksa apakah nama departemen kosong
+                                            if (empty($data['nama_departemen'])) {
+                                                // Jika nama departemen kosong, tampilkan teks "Departemen Belum Dipilih"
+                                                echo 'Departemen Belum Dipilih';
+                                            } else {
+                                                // Jika nama departemen tidak kosong, tampilkan nilai nama departemen
+                                                echo $data['nama_departemen'];
+                                            }
+                    ?>
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
@@ -85,46 +93,46 @@
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                         <script>
                            $(document).ready(function(){
-    // Simpan data asli tabel saat halaman dimuat
-    var originalData = $('#search_results').html();
+                                // Simpan data asli tabel saat halaman dimuat
+                                var originalData = $('#search_results').html();
 
-    $('#search_input').keyup(function(){
-        var keyword = $(this).val();
-        if(keyword != ''){
-            $.ajax({
-                url: '<?php echo base_url('Alternatif/ajax_search'); ?>',
-                type: 'POST',
-                data: {keyword:keyword},
-                success:function(data){
-                    var result = JSON.parse(data);
-                    var html = '';
-                    if (result.length > 0) {
-                        $.each(result, function(index, value){
-                            html += '<tr align="center">';
-                            html += '<td>' + (index + 1) + '</td>';
-                            html += '<td>' + value.nama + '</td>';
-                            html += '<td>' + value.nik + '</td>';
-                            html += '<td>' + value.nama_departemen + '</td>';
-                            html += '<td>';
-                            html += '<div class="btn-group" role="group">';
-                            html += '<a data-toggle="tooltip" data-placement="bottom" title="Detail Data" href="<?php echo base_url('Alternatif/detail/'); ?>' + value.id_alternatif + '" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>';
-                            html += '<a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="<?php echo base_url('Alternatif/destroy/'); ?>' + value.id_alternatif + '" onclick="return confirm(\'Apakah anda yakin untuk menghapus data ini\')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>';
-                            html += '</div>';
-                            html += '</td>';
-                            html += '</tr>';
-                        });
-                    } else {
-                        html += '<tr><td colspan="5" style="text-align: center; font-weight: bold;">Data tidak ditemukan</td></tr>';
-                    }
-                    $('#search_results').html(html);
-                }
-            });
-        } else {
-            // Kembalikan tampilan asli tabel
-            $('#search_results').html(originalData);
-        }
-    });
-});
+                                $('#search_input').keyup(function(){
+                                    var keyword = $(this).val();
+                                    if(keyword != ''){
+                                        $.ajax({
+                                            url: '<?php echo base_url('Alternatif/ajax_search'); ?>',
+                                            type: 'POST',
+                                            data: {keyword:keyword},
+                                            success:function(data){
+                                                var result = JSON.parse(data);
+                                                var html = '';
+                                                if (result.length > 0) {
+                                                    $.each(result, function(index, value){
+                                                        html += '<tr align="center">';
+                                                        html += '<td>' + (index + 1) + '</td>';
+                                                        html += '<td>' + value.nama + '</td>';
+                                                        html += '<td>' + value.nik + '</td>';
+                                                        html += '<td>' + value.nama_departemen + '</td>';
+                                                        html += '<td>';
+                                                        html += '<div class="btn-group" role="group">';
+                                                        html += '<a data-toggle="tooltip" data-placement="bottom" title="Detail Data" href="<?php echo base_url('Alternatif/detail/'); ?>' + value.id_alternatif + '" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>';
+                                                        html += '<a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="<?php echo base_url('Alternatif/destroy/'); ?>' + value.id_alternatif + '" onclick="return confirm(\'Apakah anda yakin untuk menghapus data ini\')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>';
+                                                        html += '</div>';
+                                                        html += '</td>';
+                                                        html += '</tr>';
+                                                    });
+                                                } else {
+                                                    html += '<tr><td colspan="5" style="text-align: center; font-weight: bold;">Data tidak ditemukan</td></tr>';
+                                                }
+                                                $('#search_results').html(html);
+                                            }
+                                        });
+                                    } else {
+                                        // Kembalikan tampilan asli tabel
+                                        $('#search_results').html(originalData);
+                                    }
+                                });
+                            });
 
 
                         </script>

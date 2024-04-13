@@ -20,13 +20,15 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="bg-primary text-white">
+                            <thead class=>
                                 <tr align="center">
-                                    <th>NIK</th>
-                                    <th>Nama Karyawan</th>
+                                    <!-- <th>NIK</th> -->
+                                    <th>Nama Calon Karyawan</th>
                                     <th>Departemen</th>
                                     <th>Nilai Preferensi</th>
                                     <th width="15%">Ranking</th>
+                                    <th width="15%">Status</th>
+                                    <th width="15%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -34,30 +36,17 @@
                                 $no = 1;
                                 foreach ($hasil as $keys) { ?>
                                     <tr align="center">
-                                        <td>
+                                        
                                             <?php
                                             $data_alternatif = $this->M_Perhitungan->get_hasil_alternatif($keys->id_alternatif);
-                                    echo $data_alternatif['nik'];
+                                    // echo $data_alternatif['nik'];
                                     ?>
-                                        </td>
-                                        <td align="left" style="padding-left: 5px;">
+                                        
+                                        <td align="center" style="padding-left: 5px;">
                                             <?php echo $data_alternatif['nama']; ?>
                                         </td>
                                         <td style="padding-left: 5px;">
-
-                                        <?php
-                                // Panggil fungsi untuk mendapatkan data departemen berdasarkan ID
-                                $departemen = $this->M_Departemen->getDataDepartemenById($data_alternatif['departemen']);
-
-                                    // Periksa apakah data departemen berhasil ditemukan
-                                    if ($departemen !== null) {
-                                        // Jika berhasil ditemukan, tampilkan nama departemen
-                                        echo $departemen->departemen;
-                                    } else {
-                                        // Jika tidak ditemukan, tampilkan pesan alternatif atau kosong
-                                        echo 'Departemen belum ditentukan'; // atau echo "";
-                                    }
-                                    ?>
+                                        <?php echo $data_alternatif['nama_departemen']; ?>
                                         </td>
                                         <td>
                                             <?php echo $keys->nilai; ?>
@@ -65,9 +54,51 @@
                                         <td>
                                             <?php echo $no; ?>
                                         </td>
+                                        <td>
+                                            <?php
+                                            // Memeriksa nilai $data_alternatif['status']
+                                            if (is_null($data_alternatif['status'])) {
+                                                // Jika status null, tampilkan pesan "Belum dinilai" dengan gaya latar belakang abu-abu dan teks putih
+                                                echo 'Belum dinilai';
+                                            } elseif ($data_alternatif['status'] == 1) {
+                                                // Jika status 1, tampilkan pesan "Lulus" dengan gaya latar belakang hijau dan teks putih
+                                                echo 'Lulus';
+                                            } elseif ($data_alternatif['status'] == 0) {
+                                                // Jika status 0, tampilkan pesan "Belum lulus" dengan gaya latar belakang merah dan teks putih
+                                                echo 'Tidak Lulus';
+                                            }
+                                    ?>
+                                        </td>
+
+                                        <td class='d-flex justify-content-center'>
+                                            <?php
+                                            // Memeriksa nilai $data_alternatif['status']
+                                            if (is_null($data_alternatif['status'])) {
+                                                // Jika status null, tampilkan dua tombol untuk memilih antara Terima atau Tolak
+                                                echo "<form action='updateStatus' method='POST'>";
+                                                echo "<input type='hidden' name='id_alternatif' value='{$data_alternatif['id_alternatif']}'>";
+                                                echo "<button type='submit' name='status' value='1' class='btn btn-success me-6'>Terima</button>";
+                                                echo "<button type='submit' name='status' value='0' class='btn btn-danger'>Tolak</button>";
+                                                echo '</form>';
+                                            } elseif ($data_alternatif['status'] == 1) {
+                                                // Jika status 1, tampilkan tombol Tolak
+                                                echo "<form action='updateStatus' method='POST'>";
+                                                echo "<input type='hidden' name='id_alternatif' value='{$data_alternatif['id_alternatif']}'>";
+                                                echo "<button type='submit' name='status' value='0' class='btn btn-danger'>Tolak</button>";
+                                                echo '</form>';
+                                            } elseif ($data_alternatif['status'] == 0) {
+                                                // Jika status 0, tampilkan tombol Terima
+                                                echo "<form action='updateStatus' method='POST'>";
+                                                echo "<input type='hidden' name='id_alternatif' value='{$data_alternatif['id_alternatif']}'>";
+                                                echo "<button type='submit' name='status' value='1' class='btn btn-success'>Terima</button>";
+                                                echo '</form>';
+                                            }
+                                    ?>
+                                        </td>
+
                                     </tr>
                                     <?php
-                                                        ++$no;
+                                                                                                                                                                            ++$no;
                                 }
                                 ?>
                             </tbody>

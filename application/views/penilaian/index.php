@@ -20,25 +20,21 @@
                     <div class="d-flex justify-content-end">
                         <form action="" method="post">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Search" name="keyword"
+                                <input type="text" class="form-control" placeholder="Search" id="search_input"
                                     autocomplete="off" autofocus>
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit" id="submit" name="submit"> Search
-                                    </button>
-                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="bg-primary text-white">
+                            <thead>
                                 <tr align="center">
                                     <th width="5%">No</th>
                                     <th>Alternatif</th>
                                     <th width="15%">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="search_results">
                                 <?php
                                 $no = 1;
             foreach ($alternatif as $keys) { ?>
@@ -120,6 +116,51 @@
             ?>
                             </tbody>
                         </table>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        <script>
+                           $(document).ready(function(){
+                                // Simpan data asli tabel saat halaman dimuat
+                                var originalData = $('#search_results').html();
+
+                                $('#search_input').keyup(function(){
+                                    var keyword = $(this).val();
+                                    if(keyword != ''){
+                                        $.ajax({
+                                            url: '<?php echo base_url('Alternatif/ajax_search'); ?>',
+                                            type: 'POST',
+                                            data: {keyword:keyword},
+                                            success:function(data){
+                                                var result = JSON.parse(data);
+                                                var html = '';
+                                                if (result.length > 0) {
+                                                    $.each(result, function(index, value){
+                                                        html += '<tr align="center">';
+                                                        html += '<td>' + (index + 1) + '</td>';
+                                                        html += '<td>' + value.nama + '</td>';
+                                                        html += '<td>';
+                                                        html += '<div class="btn-group" role="group">';
+                                                        html += '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit' + value.id_alternatif + '">';
+                                                        html += '<i class="fa fa-edit"></i> Edit';
+                                                        html += '</button>';
+                                                        html += '</div>';
+                                                        html += '</td>';
+                                                        html += '</tr>';
+                                                    });
+                                                } else {
+                                                    html += '<tr><td colspan="5" style="text-align: center; font-weight: bold;">Data tidak ditemukan</td></tr>';
+                                                }
+                                                $('#search_results').html(html);
+                                            }
+                                        });
+                                    } else {
+                                        // Kembalikan tampilan asli tabel
+                                        $('#search_results').html(originalData);
+                                    }
+                                });
+                            });
+
+
+                        </script>
                         <?php echo $this->pagination->create_links(); ?>
                     </div>
                 </div>

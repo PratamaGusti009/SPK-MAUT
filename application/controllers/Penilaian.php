@@ -9,6 +9,7 @@ class Penilaian extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('M_Penilaian');
+        $this->load->model('M_Alternatif');
     }
 
     public function index()
@@ -175,5 +176,17 @@ class Penilaian extends CI_Controller
         }
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diupdate!</div>');
         redirect('formulir/detailPenilaian');
+    }
+
+    public function ajax_search()
+    {
+        // Mengambil kata kunci pencarian dari AJAX
+        $keyword = $this->input->post('keyword');
+
+        // Mengambil data dari model berdasarkan kata kunci
+        $result = $this->M_Alternatif->search($keyword);
+
+        // Menyimpan data dalam format JSON
+        echo json_encode($result);
     }
 }

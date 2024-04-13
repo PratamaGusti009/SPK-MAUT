@@ -69,7 +69,7 @@
                                             echo $user['nama_departemen'];
                                         } else {
                                             // Jika tidak ditemukan atau kosong, tampilkan pesan alternatif
-                                            echo 'Departemen tidak ditemukan';
+                                            echo 'Departemen Belum Dipilih';
                                         }
                 ?>
                                     </td>

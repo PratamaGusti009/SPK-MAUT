@@ -77,4 +77,31 @@ class M_Alternatif extends CI_Model
 
         return $this->db->get('alternatif')->result_array();
     }
+
+    public function updateStatusModel($id_alternatif, $value)
+    {
+        // Persiapkan data yang akan diupdate
+        $data = [
+            'status' => $value,
+        ];
+
+        // Lakukan pembaruan di tabel alternatif
+        $this->db->where('id_alternatif', $id_alternatif);
+        $this->db->update('alternatif', $data);
+
+        // Memeriksa apakah pembaruan berhasil atau tidak
+        if ($this->db->affected_rows() > 0) {
+            return true; // Pembaruan berhasil
+        } else {
+            return false; // Pembaruan gagal
+        }
+    }
+
+    public function getCountByGender($gender)
+    {
+        $this->db->where('jenis_kelamin', $gender);
+        $this->db->from('alternatif');
+
+        return $this->db->count_all_results();
+    }
 }

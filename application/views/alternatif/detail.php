@@ -55,21 +55,19 @@
 							<tr>
 								<th>Departemen</th>
 								<td>
-								<?php
-    // Panggil fungsi untuk mendapatkan data departemen berdasarkan ID
-    $departemen = $this->M_Departemen->getDataDepartemenById($alternatif->departemen);
-
-				// Periksa apakah data departemen berhasil ditemukan
-				if ($departemen !== null) {
-				    // Jika berhasil ditemukan, tampilkan nama departemen
-				    echo $departemen->departemen;
-				} else {
-				    // Jika tidak ditemukan, tampilkan pesan alternatif atau kosong
-				    echo 'Departemen tidak ditemukan'; // atau echo "";
-				}
+									<?php
+                                    // Memeriksa apakah nama departemen kosong
+                                    if (empty($alternatif->nama_departemen)) {
+                                        // Jika nama departemen kosong, tampilkan teks "Departemen Belum Dipilih"
+                                        echo 'Departemen Belum Dipilih';
+                                    } else {
+                                        // Jika nama departemen tidak kosong, tampilkan nilai nama departemen
+                                        echo $alternatif->nama_departemen;
+                                    }
 				?>
 								</td>
 							</tr>
+
 
 							<tr>
 								<th>E-Mail</th>

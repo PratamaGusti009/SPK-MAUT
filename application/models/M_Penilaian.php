@@ -96,21 +96,6 @@ class M_Penilaian extends CI_Model
         return $this->db->get('alternatif', $limit, $start)->result_array();
     }
 
-    public function cariDataAlternatif()
-    {
-        $keyword = $this->input->post('keyword', true);
-
-        // Gunakan WHERE untuk pencarian yang lebih tepat
-        $this->db->like('nama', $keyword);
-        $this->db->or_like('nik', $keyword);
-        $this->db->or_like('departemen', $keyword);
-
-        // Jalankan kueri dan kembalikan hasilnya dalam bentuk array
-        $result = $this->db->get('alternatif');
-
-        return $result->result_array();
-    }
-
     // mencari apakah sudah input penilaian atau tidak
     public function is_input_penilaian($id_alternatif)
     {
@@ -125,5 +110,15 @@ class M_Penilaian extends CI_Model
             // Jika tidak, kembalikan null
             return null;
         }
+    }
+
+    public function getUnratedCountByCriteria($criteria_id)
+    {
+        // Tentukan nama tabel yang sesuai (misalnya 'penilaian')
+        $this->db->where('id_kriteria', $criteria_id);
+        $this->db->where('nilai', 0);
+        $this->db->from('penilaian'); // Nama tabel penilaian, sesuaikan dengan database Anda
+
+        return $this->db->count_all_results();
     }
 }

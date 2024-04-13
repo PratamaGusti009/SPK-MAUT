@@ -10,6 +10,7 @@ class Perhitungan extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('M_Perhitungan');
         $this->load->model('M_Departemen');
+        $this->load->model('M_Alternatif');
     }
 
     public function index()
@@ -81,8 +82,8 @@ class Perhitungan extends CI_Controller
         $kriteria = $this->M_Perhitungan->get_kriteria()->result_array();
         $alternatif = $this->M_Perhitungan->get_alternatif();
         $hasil_akhir = $this->M_Perhitungan->get_hasil();
-        $hasil_ = $this->M_Perhitungan->get_hasil_join_alternatif();
-        // var_dump($hasil_);
+        // $hasil_ = $this->M_Perhitungan->get_hasil_join_alternatif();
+        // var_dump($hasil_akhir);
         // exit;
         // $this->M_Perhitungan->hapus_hasil();
         foreach ($alternatif as $keys) {
@@ -114,5 +115,27 @@ class Perhitungan extends CI_Controller
         ];
         $this->load->view('Perhitungan/hasil', $data);
         $this->load->view('templates/footer', $data);
+    }
+
+    public function updateStatus()
+    {
+        // Ambil nilai id_alternatif dan value dari permintaan POST
+        $id_alternatif = $this->input->post('id_alternatif');
+        $value = $this->input->post('status');
+
+        // Panggil model untuk memperbarui status
+        $result = $this->M_Alternatif->updateStatusModel($id_alternatif, $value);
+
+        // Tanggapi keberhasilan atau kegagalan operasi
+        if ($result) {
+            // Pembaruan berhasil
+            $this->session->set_flashdata('success', 'Status berhasil diperbarui');
+        } else {
+            // Pembaruan gagal
+            $this->session->set_flashdata('error', 'Gagal memperbarui status');
+        }
+
+        // Refresh halaman saat ini dan kirim pesan flash
+        redirect('Perhitungan/hasil');
     }
 }

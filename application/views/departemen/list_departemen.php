@@ -1,6 +1,13 @@
-        <!-- Content Wrapper -->
+<div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash');
+?>"></div>
+    <?php if ($this->session->flashdata('flash')) { ?>
+        <!-- <div class="alert alert-success">
+            <?php echo $this->session->flashdata('flash'); ?>
+            /div> -->
+            <?php } ?>
+<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+            
             <!-- Main Content -->
             <div id="content">
 
@@ -11,7 +18,6 @@
                             <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-users-cog"></i> Data Departemen</h1>
                             <a href="<?php echo base_url('Departemen/index'); ?>" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambah Data </a>
                         </div>
-                        <?php echo $this->session->flashdata('message'); ?>
                             <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
@@ -31,9 +37,9 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $no = 1;
-                            foreach ($list_departemen as $data) {
-                                ?>
+               $no = 1;
+foreach ($list_departemen as $data) {
+    ?>
                                     <tr align="center">
                                         <td><?php echo $no; ?></td>
                                         <td><?php echo $data['nama_departemen']; ?></td>
@@ -42,7 +48,8 @@
                                         <td>
                                             <div class="btn-group" role="group">
                                                 <a data-toggle="modal" data-target="#edit<?php echo $data['id_departemen']; ?>"  class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                                <a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="<?php echo base_url('Departemen/destroy/'.$data['id_departemen']); ?>" onclick="return confirm ('Apakah anda yakin untuk menghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                                <a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="javascript:void(0);" onclick="confirmDeletion('<?php echo base_url('Departemen/destroy/'.$data['id_departemen']); ?>')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+
                                             </div>
                                             </td>
                                         </tr>
@@ -53,7 +60,7 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Kriteria</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Departemen</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -65,7 +72,7 @@
                                                         
                                                         <div class="form-group col-md-6">
                                                             <label class="font-weight-bold">Nama Departemen</label>
-                                                            <input autocomplete="off" type="text" name="departemen" value="<?php echo $data['nama_departemen']; ?>" required class="form-control"/>
+                                                            <input autocomplete="off" type="text" name="nama_departemen" value="<?php echo $data['nama_departemen']; ?>" required class="form-control"/>
                                                         </div>
 
                                                         <div class="form-group col-md-6">
@@ -89,9 +96,9 @@
                                     </div>
                                     
                                         <?php
-                                        ++$no;
-                            }
-                            ?>
+            ++$no;
+}
+?>
                                         </tbody>
                                     </table>
                                 </div>

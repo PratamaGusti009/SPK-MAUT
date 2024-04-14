@@ -21,20 +21,21 @@
                 </div>
                 <div class="row">
 
-            <?php
+                    <?php
 
-                // Memeriksa nilai $user['status']
-                if (is_null($user['status'])) {
-                    // Jika status 0, tampilkan pesan bahwa pengguna tidak lulus dengan gaya Bootstrap merah (danger)
-                } elseif ($user['status'] == 1) {
-                    // Jika status 1, tampilkan pesan bahwa pengguna lulus dengan gaya Bootstrap hijau (success)
-                    echo ' <span class="alert alert-success">Selamat, Anda lulus !</span>';
-                } elseif ($user['status'] == 0) {
-                    // Jika status null, tampilkan pesan bahwa penilaian belum selesai dengan gaya Bootstrap biru (primary)
-                    echo ' <span class="alert alert-danger">Maaf, Anda Tidak Lulus</span>';
-                }
+                        // Memeriksa nilai $user['status']
+                        if (is_null($user['status'])) {
+                            // Jika status 0, tampilkan pesan bahwa pengguna tidak lulus dengan gaya Bootstrap merah (danger)
+                        } elseif ($user['status'] == 1) {
+                            // Jika status 1, tampilkan pesan bahwa pengguna lulus dengan gaya Bootstrap hijau (success)
+                            echo ' <span class="alert alert-success">Selamat, Anda lulus !</span>';
+                        } elseif ($user['status'] == 0) {
+                            // Jika status null, tampilkan pesan bahwa penilaian belum selesai dengan gaya Bootstrap biru (primary)
+                            echo ' <span class="alert alert-danger">Maaf, Anda Tidak Lulus</span>';
+                        }
                             ?>
-            <!-- /.container-fluid -->
+                    <!-- /.container-fluid -->
+            </div>
 
         </div>
         <!-- End of Main Content -->

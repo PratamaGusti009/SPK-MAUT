@@ -87,8 +87,8 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="<?php echo base_url('Departemen/list_departemen'); ?>">Departemen</a>
-                <a class="collapse-item" href="<?php echo base_url('Admin/user_admin'); ?>">Users</a>
-                <a class="collapse-item" href="cards.html">Profile</a>
+                <a class="collapse-item" href="<?php echo base_url('Admin/user_admin'); ?>">Data Admin</a>
+                <a class="collapse-item" href="<?php echo base_url('Admin/profile'); ?>">Profile</a>
         </div>
     </div>
 </li>

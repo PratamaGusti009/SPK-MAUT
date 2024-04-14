@@ -1,12 +1,3 @@
-
-        </div>
-	  </div>
-  </div>
-
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -18,23 +9,23 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Pilih "Keluar" Jika Anda Ingin Mengakhiri Sesi Ini.</div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <a class="btn btn-primary" href="<?php echo base_url('auth/logout'); ?>">Keluar</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="<?php echo base_url('auth/logout'); ?>">Logout</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
+    <!-- Bootstrap core JavaScript -->
     <script src="<?php echo base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
+    <!-- Core plugin JavaScript -->
     <script src="<?php echo base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
+    <!-- Custom scripts for all pages -->
     <script src="<?php echo base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
@@ -44,6 +35,28 @@
     <script src="<?php echo base_url('assets/'); ?>js/demo/chart-area-demo.js"></script>
     <script src="<?php echo base_url('assets/'); ?>js/demo/chart-pie-demo.js"></script>
     <script src="<?php echo base_url('assets/'); ?>js/demo/chart-bar-demo.js"></script>
+
+    <script src="<?php echo base_url('assets/js/sweetalert2.all.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/myscript.js'); ?>"></script>
+
+    <!-- Script untuk memperbarui label input file -->
+    <script>
+        // Fungsi untuk memperbarui label input file
+        function updateFileLabel(event) {
+            var inputFile = event.target;
+            var fileName = inputFile.files[0].name; // Dapatkan nama file yang dipilih
+            
+            // Temukan label yang sesuai dengan input file ini
+            var fileLabel = document.querySelector('label[for="image"]');
+            if (fileLabel) {
+                fileLabel.textContent = fileName; // Perbarui teks label dengan nama file yang dipilih
+            }
+        }
+
+        // Tambahkan event listener pada input file
+        document.getElementById('image').addEventListener('change', updateFileLabel);
+    </script>
+
     
 
 </body>

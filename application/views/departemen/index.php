@@ -14,7 +14,7 @@
               <span class="text">Kembali</span>
             </a>
           </div>
-            <?php echo $this->session->flashdata('Pesan'); ?>
+          <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('sukses'); ?>"></div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-plus"></i> Tambah Data Departemen</h6>
@@ -23,7 +23,7 @@
             <div class="card-body">
                 <div class="form-group">
                   <label for="">Nama Departemen</label>
-                  <input required type="text" class="form-control" id="departemen" name="nama_departemen" placeholder="Masukkan nama departemen">
+                  <input required type="text" class="form-control" id="nama_departemen" name="nama_departemen" placeholder="Masukkan nama departemen">
                 </div>
 
                   <div class="form-group">

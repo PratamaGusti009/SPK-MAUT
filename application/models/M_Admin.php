@@ -15,4 +15,11 @@ class M_Admin extends CI_Model
 
         return $result;
     }
+
+    public function delete_admin($id)
+    {
+        $this->db->where('id', $id);
+
+        return $this->db->delete('admin');
+    }
 }

@@ -118,14 +118,19 @@
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><a
-                                                href="<?php echo base_url('Perhitungan/hasil'); ?>"
-                                                class="text-secondary text-decoration-none">Data Hasil Akhir</a></div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <a href="<?php echo base_url('perhitungan/hasil'); ?>"
+                                            class="text-secondary text-decoration-none">Data Hasil Akhir</a>
+                                        </div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-chart-area fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
+                                <?php if ($hitung_penilaian > 0) { ?>
+                                    <!-- Tampilkan notifikasi -->
+                                    <div class="small text-danger"><?php echo $hitung_penilaian; ?> Alternatif belum dinilai</div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

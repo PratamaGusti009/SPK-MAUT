@@ -11,7 +11,7 @@
                             <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-cube"></i> Data Kriteria</h1>
                             <a href="<?php echo base_url('syarat/create'); ?>" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambah Data </a>
                         </div>
-                        <?php echo $this->session->flashdata('message'); ?>
+                        <?php echo $this->session->flashdata('psyarat'); ?>
                             <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">

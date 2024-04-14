@@ -92,8 +92,8 @@ class Syarat extends CI_Controller
             ];
 
             $this->M_Syarat->insert($data, 'kriteria');
-            $this->session->set_flashdata('Pesan', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Holy guacamole!</strong> Data Berhasil Ditambahkan!
+            $this->session->set_flashdata('psyarat', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data Berhasil Ditambahkan!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>');
             redirect('Syarat');
@@ -119,8 +119,8 @@ class Syarat extends CI_Controller
         ];
 
         $result = $this->M_Syarat->update_kriteria($data, $id);
-        $this->session->set_flashdata('Pesan', '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Holy guacamole!</strong> Data Berhasil Diubah! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        $this->session->set_flashdata('psyarat', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        Data Berhasil Diubah! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button></div>');
         redirect('Syarat');
     }
@@ -131,10 +131,10 @@ class Syarat extends CI_Controller
         $result = $this->M_Syarat->delete_kriteria($id);
 
         if ($result) {
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus!</div>');
+            $this->session->set_flashdata('psayarat', '<div class="alert alert-success" role="alert">Data berhasil dihapus!</div>');
             redirect('Syarat');
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Dihapus!</div>');
+            $this->session->set_flashdata('psayarat', '<div class="alert alert-danger" role="alert">Data Gagal Dihapus!</div>');
         }
     }
 }

@@ -9,8 +9,8 @@
 
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-users-cog"></i> Data Departemen</h1>
-                            <a href="<?php echo base_url('Departemen/index'); ?>" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambah Data </a>
+                            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-users-cog"></i> Data Admin</h1>
+                            <a href="<?php echo base_url('Admin/tambah_admin'); ?>" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambah Data </a>
                         </div>
                             <!-- DataTales Example -->
                         <div class="card shadow mb-4">
@@ -39,8 +39,8 @@
                                         <td><?php echo $data['email']; ?></td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <!-- <a data-toggle="modal" data-target="#edit<?php echo $data['id_departemen']; ?>"  class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a> -->
-                                                <!-- <a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="<?php echo base_url('Departemen/destroy/'.$data['id_departemen']); ?>" onclick="return confirm ('Apakah anda yakin untuk menghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> -->
+                                                <!-- <a data-toggle="modal" data-target="#edit<?php echo $data['id']; ?>"  class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a> -->
+                                                <a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="<?php echo base_url('Admin/destroy/'.$data['id']); ?>" onclick="return confirm ('Apakah anda yakin untuk menghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>

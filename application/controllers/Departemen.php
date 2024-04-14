@@ -31,14 +31,12 @@ class Departemen extends CI_Controller
             // Panggil model untuk menyimpan dataInsert
             $insert_id = $this->M_Departemen->tambahDepartemen($dataInsert);
             if ($insert_id) {
-                $this->session->set_flashdata('Pesan', '<div class="alert alert-success" role="alert">
-                <strong>Selamat!</strong> Departemen Berhasil Ditambah! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button></div>');
+                $this->session->set_flashdata('flash', 'Data berhasil ditambahkan!');
                 // Jika data berhasil ditambahkan, redirect ke halaman yang sesuai
                 redirect('/Departemen/list_departemen');
             } else {
                 // Jika gagal, tampilkan pesan error atau lakukan sesuatu yang sesuai dengan kebutuhan Anda
-                echo 'Gagal menambahkan data departemen.';
+                this->session->set_flashdata('flash', 'Data gagal ditambahkan!');
             }
         } else {
             $data['title'] = 'Departemen';
@@ -74,28 +72,32 @@ class Departemen extends CI_Controller
 
     public function destroy($id)
     {
+        // Lakukan operasi penghapusan data
         $result = $this->M_Departemen->delete_departemen($id);
 
+        // Periksa apakah operasi penghapusan berhasil
         if ($result) {
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus!</div>');
-            redirect('Departemen/list_departemen');
+            // Set flash data untuk pesan sukses
+            $this->session->set_flashdata('flash', 'Data berhasil Dihapus!');
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data Gagal Dihapus!</div>');
+            // Set flash data untuk pesan error
+            $this->session->set_flashdata('flash', 'Data gagal Dihapus!');
         }
+
+        // Redirect ke halaman departemen
+        redirect('Departemen/list_departemen');
     }
 
     public function update($id)
     {
         $data = [
-            'departemen' => $this->input->post('departemen'),
+            'nama_departemen' => $this->input->post('nama_departemen'),
             'nilai_batas' => $this->input->post('nilai_batas'),
             'jumlah_penerimaan' => $this->input->post('jumlah_penerimaan'),
         ];
 
         $result = $this->M_Departemen->update_departemen($data, $id);
-        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Selamat!</strong> Data Berhasil Diubah! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button></div>');
+        $this->session->set_flashdata('flash', 'Data berhasil diubah!');
         redirect('departemen/list_departemen');
     }
 }

@@ -104,4 +104,12 @@ class M_Alternatif extends CI_Model
 
         return $this->db->count_all_results();
     }
+
+    public function get_unrated_count()
+    {
+        $this->db->where('status', null);
+        $this->db->from('alternatif'); // Ubah 'penilaian' ke nama tabel Anda
+
+        return $this->db->count_all_results();
+    }
 }

@@ -1,11 +1,9 @@
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-    <!-- Main Content -->
-    <div id="content">
+<!-- Content wrapper -->
+<div class="content-wrapper">
+            <!-- Content -->
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-            <!-- Page Heading -->
+            <div class="container-xxl flex-grow-1 container-p-y justify-content-between mb-4">
+            
             <div class="d-sm-flex align-items-center justify-content-end mb-4"><!-- Cetak nilai session -->
                 <?php
                     $isInput = $this->M_Penilaian->is_input_penilaian($user['id_alternatif']);
@@ -42,25 +40,25 @@
                                     <?php if ($sub_kriteria != null) { ?>
                                         <?php if ($key->keterangan.' ('.$key->kode_kriteria.')' !== 'Nilai Test (C2)') { ?>
                                             <div class="py-2">
-                        <li class="list-group-item font-weight-bold"><?php echo $key->keterangan.' ('.$key->kode_kriteria.')'; ?></li>
-                        <li class="list-group-item">
-                            <?php $ada_data = false; ?>
-                            <?php foreach ($sub_kriteria as $subs_kriteria) { ?>
-                                <?php
-                                // Mendapatkan nilai terpilih (jika ada)
-                                $s_option = $this->M_Penilaian->data_penilaian($user['id_alternatif'], $subs_kriteria['id_kriteria']);
-                                ?>
-                                <?php if (!empty($s_option['nilai']) && $subs_kriteria['id_sub_kriteria'] == $s_option['nilai']) { ?>
-                                    <?php echo $subs_kriteria['deskripsi']; ?><br>
-                                    <?php $ada_data = true; ?>
-                                <?php } ?>
-                            <?php } ?>
+                                                    <li class="list-group-item font-weight-bold"><?php echo $key->keterangan.' ('.$key->kode_kriteria.')'; ?></li>
+                                                    <li class="list-group-item">
+                                                        <?php $ada_data = false; ?>
+                                                        <?php foreach ($sub_kriteria as $subs_kriteria) { ?>
+                                                            <?php
+                                                            // Mendapatkan nilai terpilih (jika ada)
+                                                            $s_option = $this->M_Penilaian->data_penilaian($user['id_alternatif'], $subs_kriteria['id_kriteria']);
+                                                            ?>
+                                                            <?php if (!empty($s_option['id_sub_kriteria']) && $subs_kriteria['id_sub_kriteria'] == $s_option['id_sub_kriteria']) { ?>
+                                                                <?php echo $subs_kriteria['deskripsi']; ?><br>
+                                                                <?php $ada_data = true; ?>
+                                                            <?php } ?>
+                                                        <?php } ?>
 
-                            <?php if (!$ada_data) { ?>
-                                Belum ada data<br>
-                            <?php } ?>
-                        </li>
-                    </div>
+                                                        <?php if (!$ada_data) { ?>
+                                                            Belum ada data<br>
+                                                        <?php } ?>
+                                                    </li>
+                                                </div>
                                             <?php } ?>
                                         <?php } ?>
                                     <?php } ?>

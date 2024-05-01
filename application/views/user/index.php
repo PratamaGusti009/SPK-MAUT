@@ -1,39 +1,97 @@
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
+<div class="content-wrapper">
+            <!-- Content -->
 
-    <!-- Main Content -->
-    <div id="content">
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-            <div class="mb-4">
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                </div>
-
-                <!-- Content Row -->
-                <div class="alert alert-info">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Selamat datang
-                    <span class="text-uppercase"><b>
-                            <?php echo $user['nama']; ?>!
-                        </b></span> Harap isi semua data yang diperlukan dalam pendaftaran.
-                </div>
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="row">
+               
                 <div class="row">
 
-                    <?php
+                        <?php if (is_null($user['status'])): ?>
+                        <!-- Jika Status Null -->
+                        <div class="col-lg-8 mb-4 order-0">
+                          <div class="card">
+                            <div class="d-flex align-items-end row">
+                              <div class="col-sm-7">
+                                <div class="card-body">
+                                  <h5 class="card-title text-primary">Selamat Datang <?php echo $user['nama']; ?></h5>
+                                  <p class="mb-4">
+                                    Selalu semangat dan jangan lupa bersyukur. Harap isi semua dokumen yang diperlukan dalam proses penerimaan.
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="col-sm-5 text-center text-sm-left">
+                                <div class="card-body pb-0 px-0 px-md-4">
+                                  <img
+                                    src="<?php echo base_url('assets/'); ?>img/illustrations/man-with-laptop-light.png"
+                                    height="140"
+                                    alt="View Badge User"
+                                    data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                    data-app-light-img="illustrations/man-with-laptop-light.png"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-                        // Memeriksa nilai $user['status']
-                        if (is_null($user['status'])) {
-                            // Jika status 0, tampilkan pesan bahwa pengguna tidak lulus dengan gaya Bootstrap merah (danger)
-                        } elseif ($user['status'] == 1) {
-                            // Jika status 1, tampilkan pesan bahwa pengguna lulus dengan gaya Bootstrap hijau (success)
-                            echo ' <span class="alert alert-success">Selamat, Anda lulus !</span>';
-                        } elseif ($user['status'] == 0) {
-                            // Jika status null, tampilkan pesan bahwa penilaian belum selesai dengan gaya Bootstrap biru (primary)
-                            echo ' <span class="alert alert-danger">Maaf, Anda Tidak Lulus</span>';
-                        }
-                            ?>
+                        <?php elseif ($user['status'] == 0): ?>
+                        <!-- Jika Status 0 -->
+                        <div class="col-lg-8 mb-4 order-0">
+                          <div class="card">
+                            <div class="d-flex align-items-end row">
+                              <div class="col-sm-7">
+                                <div class="card-body">
+                                  <h5 class="card-title text-primary">Terimakasih Atas Partisipasinya <?php echo $user['nama']; ?></h5>
+                                  <p class="mb-4">
+                                    Maaf Anda <b>Tidak Lulus Penerimaan</b>. Silahkan Coba Lain Waktu, Jangan Putus Asa dan Terus Semangat
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="col-sm-5 text-center text-sm-left">
+                                <div class="card-body pb-0 px-0 px-md-4">
+                                  <img
+                                    src="<?php echo base_url('assets/'); ?>img/illustrations/girl-apologize.png"
+                                    height="140"
+                                    alt="View Badge User"
+                                    data-app-dark-img="illustrations/girl-apologize-dark.png"
+                                    data-app-light-img="illustrations/girl-apologize-light.png"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <?php elseif ($user['status'] == 1): ?>
+                          <!-- Jika Status 1 -->
+                          <div class="col-lg-8 mb-4 order-0">
+                          <div class="card">
+                            <div class="d-flex align-items-end row">
+                              <div class="col-sm-7">
+                                <div class="card-body">
+                                  <h5 class="card-title text-primary">Terimakasih Atas Partisipasinya <?php echo $user['nama']; ?></h5>
+                                  <p class="mb-4">
+                                    Selamat Anda <b>Lulus Penerimaan</b>. Hubungi Admin dan Semangat Dalam Melakukan Pekerjaan
+                                  </p>
+                                </div>
+                              </div>
+                              <div class="col-sm-5 text-center text-sm-left">
+                                <div class="card-body pb-0 px-0 px-md-4">
+                                  <img
+                                    src="<?php echo base_url('assets/'); ?>img/illustrations/people-happy.png"
+                                    height="140"
+                                    alt="View Badge User"
+                                    data-app-dark-img="illustrations/people-happy-dark.png"
+                                    data-app-light-img="illustrations/people-happy-light.png"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      
+                        <?php endif; ?>
                     <!-- /.container-fluid -->
             </div>
 

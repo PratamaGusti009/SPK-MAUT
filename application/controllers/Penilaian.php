@@ -10,6 +10,7 @@ class Penilaian extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('M_Penilaian');
         $this->load->model('M_Alternatif');
+        $this->load->model('M_Departemen');
     }
 
     public function index()
@@ -63,11 +64,13 @@ class Penilaian extends CI_Controller
         if ($this->input->post('keyword')) {
             $data['alternatif'] = $this->M_Penilaian->cariDataAlternatif();
         }
-
+        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_admin', $data);
         $this->load->view('templates/topbar', $data);
         $allkriteria = $this->M_Penilaian->get_kriteria();
+        $list_departemen = $this->M_Departemen->getDataDepartemen();
+        
         // var_dump($allkriteria);die;
 
         $data = [
@@ -82,46 +85,92 @@ class Penilaian extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function tambah_penilaian()
+    // public function tambah_penilaian()
+    // {
+    //     $id_alternatif = $this->input->post('id_alternatif');
+    //     $id_kriteria = $this->input->post('id_kriteria');
+    //     $nilai = $this->input->post('nilai');
+    //     $i = 0;
+    //     // var_dump($nilai);
+    //     // exit;
+    //     foreach ($nilai as $key) {
+    //         $this->M_Penilaian->tambah_penilaian($id_alternatif, $id_kriteria[$i], $key);
+    //         ++$i;
+    //     }
+    //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil disimpan!</div>');
+    //     redirect('penilaian');
+    // }
+
+    // public function update_penilaian()
+    // {
+    //     $id_alternatif = $this->input->post('id_alternatif');
+    //     $id_kriteria = $this->input->post('id_kriteria');
+    //     $nilai = $this->input->post('nilai');
+
+    //     if (isset($nilai)) {
+    //         $this->M_Penilaian->edit_penilaian($id_alternatif, '25', $nilai[0]);
+    //     }
+    //     var_dump($nilai);
+    //     exit;
+    //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diupdate!</div>');
+    //     redirect('penilaian');
+    // }
+
+    public function update_penilaian_admin()
     {
-        $id_alternatif = $this->input->post('id_alternatif');
-        $id_kriteria = $this->input->post('id_kriteria');
-        $nilai = $this->input->post('nilai');
-        $i = 0;
-        // var_dump($nilai);
+        // Ambil nilai input dari pengguna
+        $value = $this->input->post('nilai');
+        $id_alternatif = $this->input->post('id_alternatif'); // Ambil id_alternatif dari input pengguna
+        $id_kriteria = $this->input->post('id_kriteria'); // Ambil id_kriteria dari input pengguna
+
+        // var_dump($id_alternatif);
         // exit;
-        foreach ($nilai as $key) {
-            $this->M_Penilaian->tambah_penilaian($id_alternatif, $id_kriteria[$i], $key);
-            ++$i;
+        // Pastikan input nilai tidak kosong atau NULL
+        if ($value === null || $value === '') {
+            echo 'Nilai tidak boleh kosong.';
+
+            return;
         }
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil disimpan!</div>');
-        redirect('penilaian');
+
+        // Query database untuk mendapatkan rentang nilai yang cocok dari tabel sub_kriteria
+        $query = $this->db->get('sub_kriteria');
+
+        $found = false;
+        foreach ($query->result() as $row) {
+            // Ekstrak min_range dan max_range dari kolom deskripsi
+            list($min_range, $max_range) = sscanf($row->deskripsi, '%d - %d');
+
+            // Cek apakah nilai berada dalam rentang
+            if ($value >= $min_range && $value <= $max_range) {
+                // Jika nilai cocok dengan rentang, simpan data ke tabel penilaian
+                $data = [
+                    'id_sub_kriteria' => $row->id_sub_kriteria,
+                    'nilai' => $value,
+                ];
+
+                // Lakukan pembaruan data berdasarkan id_alternatif dan id_kriteria
+                $this->db->where('id_alternatif', $id_alternatif);
+                $this->db->where('id_kriteria', $id_kriteria);
+                $this->db->update('penilaian', $data);
+
+                echo "Nilai $value berada dalam rentang: {$row->deskripsi} (id sub kriteria: {$row->id_sub_kriteria}). Nilai telah disimpan ke dalam tabel penilaian.";
+                $found = true;
+                break;
+            }
+        }
+
+        if (!$found) {
+            // Jika nilai tidak cocok dengan rentang manapun
+            echo "Nilai $value tidak berada dalam rentang yang ditentukan.";
+        }
+
+        // Redirect ke halaman penilaian
+        redirect('Penilaian/index');
     }
 
-    public function update_penilaian()
-    {
-        $id_alternatif = $this->input->post('id_alternatif');
-        $id_kriteria = $this->input->post('id_kriteria');
-        $nilai = $this->input->post('nilai');
-        // var_dump($id_kriteria);
-        // exit;
-        // foreach ($nilai as $key) {
-        //     $cek = $this->M_Penilaian->data_penilaian($id_alternatif, $id_kriteria[$i]);
-        //     if ($cek == 0) {
-        //         $this->M_Penilaian->tambah_penilaian($id_alternatif, $id_kriteria[$i], $key);
-        //     } else {
-        //         $this->M_Penilaian->edit_penilaian($id_alternatif, $id_kriteria[$i], $key);
-        //     }
-        //     ++$i;
-        // }
-        if (isset($nilai)) {
-            $this->M_Penilaian->edit_penilaian($id_alternatif, '25', $nilai[0]);
-        }
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diupdate!</div>');
-        redirect('penilaian');
-    }
+    // Controller USER//
 
-    // tambah penilaian publik
+    // jangan diubah
     public function tambah_penilaian_public()
     {
         $id_alternatif = $this->input->post('id_alternatif');
@@ -131,51 +180,54 @@ class Penilaian extends CI_Controller
         // Menghapus elemen-elemen tertentu dari array
         unset($value['id_alternatif']);
         unset($value['id_kriteria']);
-        unset($value['nilai']);
+        unset($value['id_sub_kriteria']);
         unset($value['0']);
         array_splice($value, 1, 0, '0');
 
-        // Mengatur ulang indeks array
+        // Pastikan array nilai terurut dan tidak mengandung nilai 0
         $nilai = array_values($value);
-        // $isMethod = $this->input->post();
-        // var_dump($array);
-        // exit;
-        // $nilai = [];
 
-        // $c1 = $this->input->post('Pengalaman_Kerja_(C1)');
-        // // $c2 = $this->input->post('Pengalaman_Kerja_(C1)');
-        // $c3 = $this->input->post('Jenjang_Pendidikan_(C3)');
-        // $c4 = $this->input->post('Status_Perkawinan_(C4)');
-        // $c5 = $this->input->post('Umur_(C5)');
-
-        // array_push($nilai, $c1, '0', $c3, $c4, $c5);
-
-        // ksort($nilai);
-        // $nilai = array_map('strval', $nilai);
-        // var_dump($nilai);
-        // exit;
-        // $i = 0;
+        // Iterasi melalui nilai dan id_kriteria
         foreach ($nilai as $index => $key) {
-            $this->M_Penilaian->tambah_penilaian($id_alternatif, $id_kriteria[$index], $key);
+            // Periksa apakah id_kriteria dan nilai bukan 0, kecuali jika id_kriteria adalah 25
+            if (isset($id_kriteria[$index]) && ($id_kriteria[$index] != 0 || $key != 0 || $id_kriteria[$index] == 25)) {
+                // Panggil metode tambah_penilaian di model
+                $this->M_Penilaian->tambah_penilaian_public($id_alternatif, $id_kriteria[$index], $key);
+            }
         }
 
         redirect('formulir/detailPenilaian');
     }
+    // jangan diubah
 
-    // update peneilaian public
+    // update penilaian public
     public function update_penilaian_public()
     {
         $id_alternatif = $this->input->post('id_alternatif');
         $id_kriteria = $this->input->post('id_kriteria');
         $nilai = $this->input->post('nilai');
-        // var_dump($id_kriteria);
+
+        // Jika 'nilai' adalah array, maka lakukan pembaruan untuk setiap item
+        if (is_array($nilai)) {
+            foreach ($nilai as $index => $value) {
+                // Filter 'Nilai Test' berdasarkan key index 'C2'
+                if (isset($id_kriteria[$index]) && $id_kriteria[$index] != '25') {
+                    // Update data penilaian jika bukan 'C2'
+                    $this->M_Penilaian->edit_penilaian_public($id_alternatif, $id_kriteria[$index], $value);
+                }
+            }
+        }
+        // var_dump($id_kriteria[$index]);
+        // exit;
+        // Cetak nilai yang diterima untuk verifikasi
+        // var_dump($nilai);
         // exit;
 
-        if (isset($nilai)) {
-            $this->M_Penilaian->edit_penilaian($id_alternatif, '25', $nilai[0]);
-        }
+        // // Tambahkan exit() agar kode berhenti setelah mencetak nilai
+        // exit;
+
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diupdate!</div>');
-        redirect('formulir/detailPenilaian');
+        redirect('Formulir/detailPenilaian');
     }
 
     public function ajax_search()
@@ -189,4 +241,6 @@ class Penilaian extends CI_Controller
         // Menyimpan data dalam format JSON
         echo json_encode($result);
     }
+
+    
 }

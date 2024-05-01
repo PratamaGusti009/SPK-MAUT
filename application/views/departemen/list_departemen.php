@@ -1,32 +1,31 @@
-<div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash');
-?>"></div>
-    <?php if ($this->session->flashdata('flash')) { ?>
-        <!-- <div class="alert alert-success">
-            <?php echo $this->session->flashdata('flash'); ?>
-            /div> -->
-            <?php } ?>
-<!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            
-            <!-- Main Content -->
-            <div id="content">
 
-                <!-- Begin Page Content -->
-                    <div class="container-fluid">
+<!-- Content wrapper -->
+<div class="content-wrapper">
+
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y justify-content-between mb-4">
+            
                         <!-- Page Heading -->
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-users-cog"></i> Data Departemen</h1>
-                            <a href="<?php echo base_url('Departemen/index'); ?>" class="btn btn-primary"> <i class="fa fa-plus"></i> Tambah Data </a>
-                        </div>
-                            <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Daftar Data Departemen</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel</span> Departemen</h4>
+                            
+                        <!-- DataTales Example -->
+                        <div class="card">
+                            <h5 class="card-header">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                        Daftar Departemen
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah">
+                                                Tambah
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h5>
+                            
+                            <div class="table-responsive text-nowrap">
+                            <table class="table">
+                                <thead class="table-light">
                                     <tr align="center">
                                         <th width="5%">No</th>
                                         <th>Nama Departemen</th>
@@ -47,50 +46,132 @@ foreach ($list_departemen as $data) {
                                         <td><?php echo $data['jumlah_penerimaan']; ?></td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <a data-toggle="modal" data-target="#edit<?php echo $data['id_departemen']; ?>"  class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                                <a data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="javascript:void(0);" onclick="confirmDeletion('<?php echo base_url('Departemen/destroy/'.$data['id_departemen']); ?>')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-
+                                                <a data-bs-toggle="modal" data-bs-target="#edit<?php echo $data['id_departemen']; ?>" class="btn btn-primary"><i class="bx bx-edit" style="color: #FFFFFF;"></i></a>
+                                                <a data-bs-toggle="tooltip" type="button" class="btn btn-secondary" data-bs-toggle="modal" onclick="confirmDeletion('<?php echo base_url('Departemen/destroy/'.$data['id_departemen']); ?>')">
+    <i                                          class="bx bx-trash" style="color: #FFFFFF;"></i></a>
                                             </div>
                                             </td>
                                         </tr>
-
                                         
-                                        <!-- Modal Edit -->
-                                    <div class="modal fade" id="edit<?php echo $data['id_departemen']; ?>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
+                                        <!-- Modal Tambah-->
+                                        <div class="modal fade" id="tambah" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Departemen</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tambah Departemen</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <?php echo form_open('Departemen/tambah'); ?>
                                             <div class="modal-body">
-                                            <form action="<?php echo base_url('Departemen/update/'.$data['id_departemen']); ?>" method="POST">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        
-                                                        <div class="form-group col-md-6">
-                                                            <label class="font-weight-bold">Nama Departemen</label>
-                                                            <input autocomplete="off" type="text" name="nama_departemen" value="<?php echo $data['nama_departemen']; ?>" required class="form-control"/>
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <label class="font-weight-bold">Nilai Batas</label>
-                                                            <input autocomplete="off" type="text" name="nilai_batas" value="<?php echo $data['nilai_batas']; ?>" required class="form-control"/>
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <label class="font-weight-bold">Jumlah Penerima</label>
-                                                            <input autocomplete="off" type="text" name="jumlah_penerimaan" value="<?php echo $data['jumlah_penerimaan']; ?>" required class="form-control"/>
-                                                        </div>
-                        
+                                                <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameBackdrop" class="form-label">Nama Departemen</label>
+                                                    <input
+                                                    autocomplete="off"
+                                                    type="text"
+                                                    id="nama_departemen"
+                                                    name="nama_departemen"
+                                                    class="form-control"
+                                                    placeholder="Masukan Nama Departemen"
+                                                    required
+                                                    />
+                                                </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="col mb-0">
+                                                        <label for="nameBackdrop" class="form-label">Nilai Minimal</label>
+                                                        <input
+                                                        autocomplete="off"
+                                                        type="text"
+                                                        id="nilai_batas"
+                                                        name="nilai_batas"
+                                                        class="form-control"
+                                                        placeholder="Masukan Nilai"
+                                                        required
+                                                        />
+                                                    </div>
+                                                    <div class="col mb-0">
+                                                        <label for="dobBackdrop" class="form-label">Jumlah Penerimaan</label>
+                                                        <input
+                                                        autocomplete="off"
+                                                        type="text"
+                                                        id="jumlah_penerimaan"
+                                                        name="jumlah_penerimaan"
+                                                        class="form-control"
+                                                        placeholder="Masukan Nilai"
+                                                        required
+                                                        />
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
-                                                    <button type="reset" class="btn btn-info"><i class="fa fa-sync-alt"></i> Reset</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                            <?php echo form_close(); ?>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        
+                                               <!-- Modal Edit -->
+                                    <div class="modal fade" id="edit<?php echo $data['id_departemen']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Departemen</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                            <form action="<?php echo base_url('Departemen/update/'.$data['id_departemen']); ?>" method="POST">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameBackdrop" class="form-label">Nama Departemen</label>
+                                                    <input
+                                                    autocomplete="off"
+                                                    type="text"
+                                                    id="nama_departemen"
+                                                    name="nama_departemen"
+                                                    value="<?php echo $data['nama_departemen']; ?>"
+                                                    class="form-control"
+                                                    required
+                                                    />
                                                 </div>
+                                                </div>
+                                                <div class="row g-2">
+                                                    <div class="col mb-0">
+                                                        <label for="nameBackdrop" class="form-label">Nilai Minimal</label>
+                                                        <input
+                                                        autocomplete="off"
+                                                        type="text"
+                                                        id="nilai_batas"
+                                                        name="nilai_batas"
+                                                        value="<?php echo $data['nilai_batas']; ?>"
+                                                        class="form-control"
+                                                        required
+                                                        />
+                                                    </div>
+                                                    <div class="col mb-0">
+                                                        <label for="dobBackdrop" class="form-label">Jumlah Penerimaan</label>
+                                                        <input
+                                                        autocomplete="off"
+                                                        type="text"
+                                                        id="jumlah_penerimaan"
+                                                        name="jumlah_penerimaan"
+                                                        value="<?php echo $data['jumlah_penerimaan']; ?>"
+                                                        class="form-control"
+                                                        required
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Reset</button>
+                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                </div>
+
+                                                
                                             </form>
                                         </div>
                                     </div>

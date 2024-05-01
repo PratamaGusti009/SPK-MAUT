@@ -31,12 +31,12 @@ class Departemen extends CI_Controller
             // Panggil model untuk menyimpan dataInsert
             $insert_id = $this->M_Departemen->tambahDepartemen($dataInsert);
             if ($insert_id) {
-                $this->session->set_flashdata('flash', 'Data berhasil ditambahkan!');
+                $this->session->set_flashdata('flash_departemen', 'Data berhasil ditambahkan!');
                 // Jika data berhasil ditambahkan, redirect ke halaman yang sesuai
                 redirect('/Departemen/list_departemen');
             } else {
                 // Jika gagal, tampilkan pesan error atau lakukan sesuatu yang sesuai dengan kebutuhan Anda
-                this->session->set_flashdata('flash', 'Data gagal ditambahkan!');
+                this->session->set_flashdata('error', 'Data gagal ditambahkan!');
             }
         } else {
             $data['title'] = 'Departemen';
@@ -78,11 +78,14 @@ class Departemen extends CI_Controller
         // Periksa apakah operasi penghapusan berhasil
         if ($result) {
             // Set flash data untuk pesan sukses
-            $this->session->set_flashdata('flash', 'Data berhasil Dihapus!');
+            $this->session->set_flashdata('flash_departemen', 'Data berhasil Dihapus!');
         } else {
             // Set flash data untuk pesan error
-            $this->session->set_flashdata('flash', 'Data gagal Dihapus!');
+            $this->session->set_flashdata('error', 'Data gagal Dihapus!');
         }
+
+        // Hapus session confirmDeletion
+        $this->session->unset_userdata('confirmDeletion');
 
         // Redirect ke halaman departemen
         redirect('Departemen/list_departemen');
@@ -98,6 +101,23 @@ class Departemen extends CI_Controller
 
         $result = $this->M_Departemen->update_departemen($data, $id);
         $this->session->set_flashdata('flash', 'Data berhasil diubah!');
+        redirect('departemen/list_departemen');
+    }
+
+    public function tambah()
+    {
+        $data = [
+            'nama_departemen' => $this->input->post('nama_departemen'),
+            'nilai_batas' => $this->input->post('nilai_batas'),
+            'jumlah_penerimaan' => $this->input->post('jumlah_penerimaan'),
+        ];
+
+        $result = $this->M_Departemen->tambahDepartemen($data);
+        if ($result) {
+            $this->session->set_flashdata('flash_departemen', 'Data departemen berhasil ditambahkan!');
+        } else {
+            $this->session->set_flashdata('error', 'Gagal menambahkan data departemen!');
+        }
         redirect('departemen/list_departemen');
     }
 }

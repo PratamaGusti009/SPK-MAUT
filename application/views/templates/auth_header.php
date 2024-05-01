@@ -1,29 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
 
-    <title><?php echo $title; ?></title>
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+  lang="en"
+  class="light-style customizer-hide"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="<?php echo base_url('assets/'); ?>"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
 
-    <!-- Custom fonts for this template-->
-    <link href="<?php echo base_url('assets/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="<?php echo base_url('assets/'); ?>img/favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Custom styles for this template-->
-    <link href="<?php echo base_url('assets/'); ?>css/sb-admin-2.min.css" 
-    rel="stylesheet">
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>vendor/fonts/boxicons.css" />
 
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>css/demo.css" />
 
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-</head>
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>vendor/css/pages/page-auth.css" />
+    <!-- Helpers -->
+    <script src="<?php echo base_url('assets/'); ?>vendor/js/helpers.js"></script>
 
-<body class="bg-gradient-primary">
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="<?php echo base_url('assets/'); ?>js/config.js"></script>
+  </head>
+
+  <body>
+
+    <!-- SweetAlert2 -->
+    <!-- <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash'); ?>"></div>
+    <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('error'); ?>"></div> -->

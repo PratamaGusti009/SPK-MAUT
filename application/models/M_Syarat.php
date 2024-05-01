@@ -11,7 +11,8 @@ class M_Syarat extends CI_Model
 
     public function get_all_kriteria()
     {
-        return $this->db->get('kriteria');
+        $result = $this->db->get('kriteria');
+        return $result;
     }
 
     public function insert($data = [])
@@ -41,5 +42,13 @@ class M_Syarat extends CI_Model
         $this->db->where('id_kriteria', $id);
 
         return $this->db->delete('kriteria');
+    }
+
+    public function hitungkriteria()
+    {
+        $this->db->where('id_kriteria', null);
+        $this->db->from('kriteria');; // Ubah 'penilaian' ke nama tabel Anda
+
+        return $this->db->count_all_results();
     }
 }

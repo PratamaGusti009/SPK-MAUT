@@ -1,11 +1,10 @@
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-    <!-- Main Content -->
-    <div id="content">
+<!-- Content wrapper -->
+<div class="content-wrapper">
+            <!-- Content -->
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-            <!-- Page Heading -->
+            <div class="container-xxl flex-grow-1 container-p-y justify-content-between mb-4">
+            
+                   
             <div class="d-sm-flex align-items-center justify-content-end mb-4"><!-- Cetak nilai session -->
                 <?php
                 $buttonText = !empty($user['nik']) ? 'Edit Data' : 'Lengkapi Data Pribadi';
@@ -18,6 +17,9 @@
                 </a>
 
             </div>
+        
+
+            
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
@@ -101,3 +103,9 @@
                     </div>
                 </div>
             </div>
+
+
+
+                                </div>
+                            </h5>
+            

@@ -1,25 +1,64 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="<?php echo base_url('assets/'); ?>"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
 
     <title><?php echo $title; ?></title>
 
-    <!-- Custom fonts for this template-->
-    <link href="<?php echo base_url('assets/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    
-    <!-- Custom styles for this template-->
-    <link href="<?php echo base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
+    <meta name="description" content="" />
 
-</head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="<?php echo base_url('assets/'); ?>img/favicon/favicon.ico" />
 
-<body id="page-top">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href=".<?php echo base_url('assets/'); ?>vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href=".<?php echo base_url('assets/'); ?>css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href=".<?php echo base_url('assets/'); ?>vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href=".<?php echo base_url('assets/'); ?>vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="<?php echo base_url('assets/'); ?>vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="<?php echo base_url('assets/'); ?>js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+
+      <!-- SweetAlert2 -->
+      <!-- <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('flash'); ?>"></div>
+      <div class="flash-data" data-flashdata="<?php echo $this->session->flashdata('error'); ?>"></div> -->

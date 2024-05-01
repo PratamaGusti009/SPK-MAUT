@@ -48,9 +48,15 @@ class Syarat extends CI_Controller
             $kriterias[$i]['nilai_normalisasi'] = $hasil_normalisasi[$i];
         }
 
+           // Penjumlahan nilai normalisasi
+        $total_nilai_normalisasi = array_sum($hasil_normalisasi);
+
         // Mengirimkan data ke view
         $data['nilai_normalisasi'] = $hasil_normalisasi;
         $data['_kriteria'] = $kriterias;
+        $data['total'] = $total;
+        $data['total_nilai_normalisasi'] = $total_nilai_normalisasi;
+
 
         // var_dump($data['kriterias'] = $kriterias);
         // exit;
@@ -62,66 +68,41 @@ class Syarat extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    // menampilkan view create
-    public function create()
-    {
-        $data['title'] = 'Kriteria';
-        $data['user'] = $this->db->get_where('admin', [
-            'email' => $this->session->userdata('email'),
-        ])->row_array();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar_admin', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('syarat/create', $data);
-        $this->load->view('templates/footer', $data);
-    }
-
     // menambahkan data ke database
-    public function store()
+    public function tambah()
     {
-        $this->_rules();
+        $data = [
+            'kode_kriteria' => $this->input->post('kode_kriteria'),
+            'keterangan' => $this->input->post('nama_kriteria'),
+            'bobot' => $this->input->post('bobot'),
+        ];
 
-        if ($this->form_validation->run() == false) {
-            $this->create();
-        } else {
-            $data = [
-                'keterangan' => $this->input->post('keterangan'),
-                'kode_kriteria' => $this->input->post('kode_kriteria'),
-                'bobot' => $this->input->post('bobot'),
-            ];
-
-            $this->M_Syarat->insert($data, 'kriteria');
-            $this->session->set_flashdata('psyarat', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        $this->M_Syarat->insert($data, 'kriteria');
+        $this->session->set_flashdata('psyarat', '<div class="alert alert-success alert-dismissible fade show" role="alert">
             Data Berhasil Ditambahkan!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>');
-            redirect('Syarat');
-        }
-    }
-
-    public function _rules()
-    {
-        $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
-        $this->form_validation->set_rules('kode_kriteria', 'Kode Kriteria', 'required');
-        $this->form_validation->set_rules('bobot', 'Bobot', 'required');
+        redirect('Syarat/index');
     }
 
     public function update($id)
     {
-        $this->load->model('M_Syarat');
-
         $data = [
-            // 'id_alternatif' => $this->input->post(id_alternatif),
-            'keterangan' => $this->input->post('keterangan'),
-            'kode_kriteria' => $this->input->post('kode_kriteria'),
+            'kode_kriteria' => $this->input->post('kode_kriteria'), // Sesuaikan dengan nama input pada form
+            'keterangan' => $this->input->post('nama_kriteria'), // Sesuaikan dengan nama input pada form
             'bobot' => $this->input->post('bobot'),
         ];
 
         $result = $this->M_Syarat->update_kriteria($data, $id);
-        $this->session->set_flashdata('psyarat', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        if ($result) {
+            $this->session->set_flashdata('psyarat', '<div class="alert alert-success alert-dismissible fade show" role="alert">
         Data Berhasil Diubah! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button></div>');
+        <span aria-hidden="true">&times;</span></button></div>');
+        } else {
+            $this->session->set_flashdata('psyarat', '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Gagal Mengubah Data! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button></div>');
+        }
         redirect('Syarat');
     }
 

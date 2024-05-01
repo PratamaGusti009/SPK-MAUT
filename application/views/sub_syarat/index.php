@@ -1,75 +1,89 @@
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+ <!-- Content wrapper -->
+<div class="content-wrapper">
+            <!-- Content -->
 
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Begin Page Content -->
-                    <div class="container-fluid">
+            <div class="container-xxl flex-grow-1 container-p-y justify-content-between mb-4">
+            
                         <!-- Page Heading -->
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-cubes"></i> Data Sub Kriteria</h1>
-                        </div>
-                        <?php echo $this->session->flashdata('message'); ?>
+                        
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel</span> Sub Kriteria</h4>
                             <!-- DataTales Example -->
-                            <!-- <?php if ($kriteria == null) { ?> -->
+                        <!-- <div class="card"> -->
+                            <?php if ($kriteria == null) { ?>
                                 <div class="card shadow mb-4">
-                                    <!-- /.card-header -->
-                                    <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> Daftar Data Sub Kriteria</h6>
-                                    </div>
-
                                     <div class="card-body">
                                         <div class="alert alert-info">
-                                            Data masih kosong.
+                                            <b>DATA KRITERIA KOSONG, HARAP ISI DATA KRITERIA TERLEBIH DAHULU</b>
                                         </div>
                                     </div>
                                 </div>
-                            <!-- <?php } ?> -->
-                    </div>
-                    <?php foreach ($kriteria as $key) { ?>
-                        <div class="card shadow mb-4 mx-4">
-                            <!-- /.card-header -->
-                            <div class="card-header py-3">
+                            <?php } ?>
+                        <?php foreach ($kriteria as $key) { ?>
+                            <div class="card mb-4 mx-6">
+                            <div class="card-header">
                                 <div class="d-sm-flex align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-table"></i> <?php echo $key->keterangan.' ('.$key->kode_kriteria.')'; ?></h6>
-                                    
-                                    <a href="#tambah<?php echo $key->id_kriteria; ?>" data-toggle="modal" class="btn btn-sm btn-primary"> <i class="fa fa-plus"></i> Tambah Data </a>
+                                    <h6 class="m-0 font-weight-bold text-secondary"><i class="fa fa-table"></i> <?php echo $key->keterangan.' ('.$key->kode_kriteria.')'; ?></h6>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah<?php echo $key->id_kriteria; ?>">
+                                        Tambah Data
+                                    </button>
                                 </div>
                             </div>
-                            
-                            <div class="modal fade" id="tambah<?php echo $key->id_kriteria; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="myModalLabel"><i class="fa fa-plus"></i> Tambah <?php echo $key->keterangan; ?></h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        </div>
-                                        <?php echo form_open('Sub_kriteria/store'); ?>
+                                    <!-- Modal Tambah -->
+                                    <div class="modal fade" id="tambah<?php echo $key->id_kriteria; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Kriteria <?php echo $key->keterangan; ?></h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <?php echo form_open('Sub_kriteria/store'); ?>
+                                            <input type="text" name="id_kriteria" value="<?php echo $key->id_kriteria; ?>" hidden>
                                             <div class="modal-body">
-                                                <input type="text" name="id_kriteria" value="<?php echo $key->id_kriteria; ?>" hidden>
-                                                <div class="form-group">
-                                                    <label for="deskripsi" class="font-weight-bold">Nama Sub Kriteria</label>
-                                                    <input autocomplete="off" type="text" id="deskripsi" class="form-control" name="deskripsi" required>
+                                                <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameBackdrop" class="form-label">Nama Sub Kriteria</label>
+                                                    <input
+                                                    autocomplete="off"
+                                                    type="text"
+                                                    id="deskripsi"
+                                                    name="deskripsi"
+                                                    class="form-control"
+                                                    placeholder="Masukan Nama Sub Kriteria"
+                                                    required
+                                                    />
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="nilai" class="font-weight-bold">Nilai</label>
-                                                    <input autocomplete="off" type="text" id="nilai" name="nilai" class="form-control" required>
+                                                </div>
+
+                                                <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameBackdrop" class="form-label">Nilai</label>
+                                                    <input
+                                                    autocomplete="off"
+                                                    type="text"
+                                                    id="nilai"
+                                                    name="nilai"
+                                                    class="form-control"
+                                                    placeholder="Masukan Nilai"
+                                                    required
+                                                    />
+                                                </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Batal</button>
-                                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
                                             </div>
-                                        <?php echo form_close(); ?>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
+                                            <?php echo form_close(); ?>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <!-- Modal Tambah -->                            
+                            
+                        <!-- Tabel -->
+                        <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
+                                    <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                        <thead class="table-light">
                                             <tr align="center">						
                                                 <th width="5%">No</th>
                                                 <th>Nama Sub Kriteria</th>
@@ -80,54 +94,78 @@
                                         <tbody>
                                             <?php
                                                 $sub_kriteria1 = $this->M_Sub_Kriteria->data_sub_kriteria($key->id_kriteria);
-                        $no = 1;
-                        foreach ($sub_kriteria1 as $key) {
-                            ?>
+                            // var_dump($sub_kriteria1);
+                            // exit;
+                            $no = 1;
+                            foreach ($sub_kriteria1 as $key) {
+                                ?>
                                             <tr align="center">
                                                 <td><?php echo $no; ?></td>
                                                 <td align="left"><?php echo $key['deskripsi']; ?></td>
                                                 <td><?php echo $key['nilai']; ?></td>
                                                 <td>
-                                                    <div class="btn-group" role="group">
-                                                        <a data-toggle="modal" title="Edit Data" href="#editsk<?php echo $key['id_sub_kriteria']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                                        <a  data-toggle="tooltip" data-placement="bottom" title="Hapus Data" href="<?php echo base_url('Sub_kriteria/destroy/'.$key['id_sub_kriteria']); ?>" onclick="return confirm ('Apakah anda yakin untuk meghapus data ini')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                                                    </div>
+                                                <div class="btn-group" role="group">
+                                                    <a data-bs-toggle="modal" data-bs-target="#editsk<?php echo $key['id_sub_kriteria']; ?>" class="btn btn-primary"><i class="bx bx-edit" style="color: #FFFFFF;"></i></a>
+                                                    <a data-bs-toggle="tooltip" type="button" class="btn btn-secondary" data-bs-toggle="modal" href="<?php echo base_url('Sub_kriteria/destroy/'.$key['id_sub_kriteria']); ?>">
+                                                    <i class="bx bx-trash" style="color: #FFFFFF;"></i></a>
+                                                </div>  
                                                 </td>
                                             </tr>
+                                            <!-- Modal Tambah -->
+                                    <div class="modal fade" id="editsk<?php echo $key['id_sub_kriteria']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit <?php echo $key['deskripsi']; ?></h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <?php echo form_open('Sub_kriteria/update/'.$key['id_sub_kriteria']); ?>
+                                            <?php echo form_hidden('id_sub_kriteria', $key['id_sub_kriteria']); ?>
+                                            <div class="modal-body">
+                                            <input type="text" name="id_kriteria" value="<?php echo $key['id_kriteria']; ?>" hidden>
+                                                <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameBackdrop" class="form-label">Nama Sub Kriteria</label>
+                                                    <input
+                                                    autocomplete="off"
+                                                    type="text"
+                                                    id="deskripsi"
+                                                    name="deskripsi"
+                                                    class="form-control"
+                                                    value="<?php echo $key['deskripsi']; ?>"
+                                                    required
+                                                    />
+                                                </div>
+                                                </div>
 
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="editsk<?php echo $key['id_sub_kriteria']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="myModalLabel"><i class="fa fa-edit"></i> Edit <?php echo $key['deskripsi']; ?></h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                        </div>
-                                                        <?php echo form_open('Sub_kriteria/update/'.$key['id_sub_kriteria']); ?>
-                                                            <?php echo form_hidden('id_sub_kriteria', $key['id_sub_kriteria']); ?>
-                                                            <div class="modal-body">
-                                                                <input type="text" name="id_kriteria" value="<?php echo $key['id_kriteria']; ?>" hidden>
-                                                                <div class="form-group">
-                                                                    <label for="deskripsi" class="font-weight-bold">Nama Sub Kriteria</label>
-                                                                    <input type="text" id="deskripsi" autocomplete="off" class="form-control" value="<?php echo $key['deskripsi']; ?>" name="deskripsi" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="nilai" class="font-weight-bold">Nilai</label>
-                                                                    <input type="text" autocomplete="off" id="nilai" name="nilai" class="form-control" value="<?php echo $key['nilai']; ?>" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i> Batal</button>
-                                                                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Update</button>
-                                                            </div>
-                                                        <?php echo form_close(); ?>
-                                                    </div>
+                                                <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameBackdrop" class="form-label">Nilai</label>
+                                                    <input
+                                                    autocomplete="off"
+                                                    type="text"
+                                                    id="nilai"
+                                                    name="nilai"
+                                                    class="form-control"
+                                                    value="<?php echo $key['nilai']; ?>"
+                                                    required
+                                                    />
+                                                </div>
                                                 </div>
                                             </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            </div>
+                                            <?php echo form_close(); ?>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <!-- Modal Tambah --> 
                                         <?php
-                            ++$no;
-                        }
-                        ?>
+                                ++$no;
+                            }
+                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -135,12 +173,16 @@
                         </div>
                         <?php } ?>	  
                 </div>
-                <!-- /.container-fluid -->
+                                   
 
-            </div>
-            <!-- End of Main Content -->
-
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
         </div>
-            <!-- End of Main Content -->
+        <!-- / Layout page -->
+      </div>
 
-           
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->

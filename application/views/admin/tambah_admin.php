@@ -9,9 +9,11 @@
 
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-plus"></i> Tambah Admin</h1>
+                        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-plus"></i> Tambah Admin</h1>
+                        <a href="<?php echo base_url('Admin/user_admin'); ?>" class="btn btn-secondary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span>
+                            <span class="text">Kembali</span>
+                            </a>
                         </div>
-
                         <div class="card shadow mb-4">
                         <form action="<?php echo base_url('Admin/tambah_admin'); ?>" method="POST">
                         <div class="card-body">

@@ -140,6 +140,7 @@ class Formulir extends CI_Controller
             'sub_kriteria' => $this->M_Sub_Kriteria->tampil(),
             'alternatif' => $this->M_Penilaian->get_alternatif(),
         ];
+
         $this->load->view('Formulir/penilaian', $data);
         $this->load->view('templates/footer');
     }
@@ -197,6 +198,8 @@ class Formulir extends CI_Controller
             'sub_kriteria' => $this->M_Sub_Kriteria->tampil(),
             'alternatif' => $this->M_Penilaian->get_alternatif(),
         ];
+        // var_dump('sub_kriteria');
+        // exit;
         $this->load->view('Formulir/detailPenilaian', $data);
         $this->load->view('templates/footer', $data);
     }

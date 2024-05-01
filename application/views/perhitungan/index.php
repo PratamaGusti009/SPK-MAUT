@@ -1,16 +1,12 @@
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+ <!-- Content wrapper -->
+<div class="content-wrapper">
+            <!-- Content -->
 
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Begin Page Content -->
-                    <div class="container-fluid">
+            <div class="container-xxl flex-grow-1 container-p-y justify-content-between mb-4">
+            
                         <!-- Page Heading -->
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-calculator"></i> Data Perhitungan</h1>
-                        </div>
-                       
+                        
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel</span> Perhitungan</h4>
                             <!-- DataTales Example -->
 
                             <div class="card shadow mb-4">
@@ -21,7 +17,7 @@
 
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" width="100%" cellspacing="0">
+                                        <table class="table table-striped" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr align="center">
                                                     <?php foreach ($kriteria as $data) { ?>
@@ -52,7 +48,7 @@
                             
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr align="center">
                                             <th width="5%">No</th>
@@ -120,7 +116,7 @@
 
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" width="100%" cellspacing="0">
+                                        <table class="table table-striped" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr align="center">
                                                     <th width="5%">No</th>
@@ -140,11 +136,16 @@
                                                     <?php foreach ($kriteria as $key) { ?>
                                                     <td>
                                                     <?php
-
-                                                    $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $key['id_kriteria']);
+                                                        $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $key['id_kriteria']);
                                                         $min_max = $this->M_Perhitungan->get_max_min($key['id_kriteria']);
-                                                        $hasil = @round(($data_pencocokan['nilai'] - $min_max['min']) / ($min_max['max'] - $min_max['min']), 2);
-                                                        echo $hasil;
+                                                        $denominator = $min_max['max'] - $min_max['min'];
+                                                        if ($denominator != 0) {
+                                                            $hasil = @round(($data_pencocokan['nilai'] - $min_max['min']) / $denominator, 2);
+                                                            echo $hasil;
+                                                        } else {
+                                                            echo 'Tidak Bisa Dilakukan Perhitungan';
+                                                        }
+
                                                         ?>
                                                     </td>
                                                     <?php }?>
@@ -167,7 +168,7 @@
 
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" width="100%" cellspacing="0">
+                                        <table class="table table-striped" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr align="center">
                                                     <th width="5%">No</th>
@@ -190,8 +191,6 @@
                                                         foreach ($kriteria as $data) {
                                                             $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $data['id_kriteria']);
                                                             $min_max = $this->M_Perhitungan->get_max_min($data['id_kriteria']);
-                                                            $data_pencocokan = $this->M_Perhitungan->data_nilai($keys['id_alternatif'], $data['id_kriteria']);
-                                                            $min_max = $this->M_Perhitungan->get_max_min($data['id_kriteria']);
                                                             // Periksa apakah penyebut (denominator) pembagian tidak nol
                                                             $denominator = ($min_max['max'] - $min_max['min']);
                                                             if ($denominator != 0) {
@@ -204,7 +203,7 @@
                                                             $bobot = $data['nilai_normalisasi'];
                                                             $nilai_total += $bobot * $hasil_normalisasi;
 
-                                                            echo '('.$bobot.'x'.$hasil_normalisasi.') ';
+                                                            echo '('.$bobot.'x'.$hasil_normalisasi.')';
                                                         }
                                                         $hasil_akhir = [
                                                             'id_alternatif' => $keys['id_alternatif'],

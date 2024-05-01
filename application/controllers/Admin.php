@@ -11,6 +11,8 @@ class Admin extends CI_Controller
         $this->load->model('M_Penilaian');
         $this->load->model('M_Alternatif');
         $this->load->model('M_Admin');
+        $this->load->model('M_Syarat');
+        $this->load->model('M_Sub_Kriteria');
     }
 
     public function index()
@@ -19,6 +21,11 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('admin', [
             'email' => $this->session->userdata('email'),
         ])->row_array();
+
+        $hitung_alternatif = $this->M_Alternatif->count_all_data();
+
+        // Dapatkan lihat berapa kriteria
+        $hitung_kriteria = $this->M_Syarat->hitungkriteria(25);
 
         // Dapatkan jumlah penilaian yang belum dinilai berdasarkan id_kriteria 25
         $unratedCount = $this->M_Penilaian->getUnratedCountByCriteria(25);
@@ -45,6 +52,11 @@ class Admin extends CI_Controller
 
             'hitung_penilaian' => $hitung_penilaian,
             // Tampilkan hasil akhir yang belum dihitung
+
+            'hitung_kriteria' => $hitung_kriteria,
+
+            'hitung_alternatif' => $hitung_alternatif,
+
         ];
 
         $this->load->view('admin/index', $data);
@@ -182,6 +194,8 @@ class Admin extends CI_Controller
             // Set success flash data
             $this->session->set_flashdata('success', 'Profil berhasil diperbarui!');
 
+            var_dump($nama);
+            die;
             // Redirect ke halaman profile
             redirect('Admin/profile');
         }

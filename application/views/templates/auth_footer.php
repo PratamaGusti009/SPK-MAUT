@@ -1,14 +1,21 @@
-    <!-- Bootstrap core JavaScript -->
-    <script src="<?php echo base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
-    <script src="<?php echo base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="<?php echo base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="<?php echo base_url('assets/'); ?>vendor/libs/jquery/jquery.js"></script>
+    <script src="<?php echo base_url('assets/'); ?>vendor/libs/popper/popper.js"></script>
+    <script src="<?php echo base_url('assets/'); ?>vendor/js/bootstrap.js"></script>
+    <script src="<?php echo base_url('assets/'); ?>vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="<?php echo base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
+    <script src="<?php echo base_url('assets/'); ?>vendor/js/menu.js"></script>
+    <!-- endbuild -->
 
-   
-</body>
+    <!-- Vendors JS -->
 
+    <!-- Main JS -->
+    <script src="<?php echo base_url('assets/'); ?>js/main.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="<?php echo base_url('assets/'); ?>js/sweetalert2.all.min.js"></script>
+    <script src="<?php echo base_url('assets/'); ?>js/scriptsa.js"></script>
+  </body>
 </html>

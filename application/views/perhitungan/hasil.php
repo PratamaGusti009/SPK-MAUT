@@ -1,37 +1,26 @@
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-
-    <!-- Main Content -->
-    <div id="content">
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-            <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-chart-area"></i> Data Hasil Akhir</h1>
-            </div>
+<!-- Content wrapper -->
+<div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y justify-content-between mb-4">
+        <!-- Page Heading -->
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Hasil</span> Akhir</h4>
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-chart-area"></i> Hasil Akhir
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead class=>
-                                <tr align="center">
-                                    <!-- <th>NIK</th> -->
-                                    <th>Nama Calon Karyawan</th>
-                                    <th>Departemen</th>
-                                    <th>Nilai Preferensi</th>
-                                    <th width="15%">Ranking</th>
-                                    <th width="15%">Status</th>
-                                    <th width="15%">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Daftar Departemen</h6>
+                            </div>
+                            <table class="table">
+                                    <thead class="table-light">
+                                        <tr align="center">
+                                        <th width="15%">Nama</th>
+                                        <th>Departemen</th>
+                                        <th>Nilai Preferensi</th>
+                                        <th width="15%">Ranking</th>
+                                        <th width="15%">Status</th>
+                                        <th width="15%">Aksi</th>
+                                    </tr>
+                                </thead>
                                 <?php
                                 $no = 1;
                                 foreach ($hasil as $keys) { ?>
@@ -77,20 +66,20 @@
                                                 // Jika status null, tampilkan dua tombol untuk memilih antara Terima atau Tolak
                                                 echo "<form action='updateStatus' method='POST'>";
                                                 echo "<input type='hidden' name='id_alternatif' value='{$data_alternatif['id_alternatif']}'>";
-                                                echo "<button type='submit' name='status' value='1' class='btn btn-success me-6'>Terima</button>";
-                                                echo "<button type='submit' name='status' value='0' class='btn btn-danger'>Tolak</button>";
+                                                echo "<button type='submit' name='status' value='1' class='btn btn-primary me-6'><i class='bx bx-check' style='color: #FFFFFF;'></i></button>";
+                                                echo "<button type='submit' name='status' value='0' class='btn btn-secondary'><i class='bx bx-x' style='color: #FFFFFF;'></i></button>";
                                                 echo '</form>';
                                             } elseif ($data_alternatif['status'] == 1) {
                                                 // Jika status 1, tampilkan tombol Tolak
                                                 echo "<form action='updateStatus' method='POST'>";
                                                 echo "<input type='hidden' name='id_alternatif' value='{$data_alternatif['id_alternatif']}'>";
-                                                echo "<button type='submit' name='status' value='0' class='btn btn-danger'>Tolak</button>";
+                                                echo "<button type='submit' name='status' value='0' class='btn btn-secondary'><i class='bx bx-x' style='color: #FFFFFF;'></i></button>";
                                                 echo '</form>';
                                             } elseif ($data_alternatif['status'] == 0) {
                                                 // Jika status 0, tampilkan tombol Terima
                                                 echo "<form action='updateStatus' method='POST'>";
                                                 echo "<input type='hidden' name='id_alternatif' value='{$data_alternatif['id_alternatif']}'>";
-                                                echo "<button type='submit' name='status' value='1' class='btn btn-success'>Terima</button>";
+                                                echo "<button type='submit' name='status' value='1' class='btn btn-primary me-6'><i class='bx bx-check' style='color: #FFFFFF;'></i></button>";
                                                 echo '</form>';
                                             }
                                     ?>
@@ -102,10 +91,45 @@
                                 }
                                 ?>
                             </tbody>
+            
+                            <!-- <tfoot align="center">
+                                <th colspan="2">Total</th>
+                                <th colspan="2"></th>
+                                <th colspan="2"></th>
+                            </tfoot> -->
                         </table>
                     </div>
+                                    <!-- Departemen -->
+                                    
+                                        <div class="card shadow mb-4">
+                                            <table class="table">
+                                                    <thead class="table-light">
+                                                        <tr align="center">
+                                                        <th>Nama Departemen</th>
+                                                        <th>Nilai Minimal</th>
+                                                        <th>Jumlah Penerimaan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                    foreach ($list_departemen as $data) {
+                                                ?>
+                                                <tr align="center">
+                                                    <td><?php echo $data['nama_departemen']; ?></td>
+                                                    <td><?php echo $data['nilai_batas']; ?></td>
+                                                    <td><?php echo $data['jumlah_penerimaan']; ?></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                         </div>
+                    </div>
                 </div>
+                <?php
+                    }
+                ?>
             </div>
         </div>
     </div>
+    </div>
+   
 </div>

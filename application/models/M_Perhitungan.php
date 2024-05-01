@@ -24,7 +24,7 @@ class M_Perhitungan extends CI_Model
 
     public function data_nilai($id_alternatif, $id_kriteria)
     {
-        $query = $this->db->query("SELECT * FROM penilaian JOIN sub_kriteria WHERE penilaian.nilai=sub_kriteria.id_sub_kriteria AND penilaian.id_alternatif='$id_alternatif' AND penilaian.id_kriteria='$id_kriteria';");
+        $query = $this->db->query("SELECT * FROM penilaian JOIN sub_kriteria WHERE penilaian.id_sub_kriteria=sub_kriteria.id_sub_kriteria AND penilaian.id_alternatif='$id_alternatif' AND penilaian.id_kriteria='$id_kriteria';");
 
         return $query->row_array();
     }
@@ -32,7 +32,7 @@ class M_Perhitungan extends CI_Model
     public function get_max_min($id_kriteria)
     {
         $query = $this->db->query("SELECT max(sub_kriteria.nilai) as max, min(sub_kriteria.nilai) as min, sub_kriteria.nilai as nilai FROM `penilaian` 
-            JOIN sub_kriteria ON penilaian.nilai=sub_kriteria.id_sub_kriteria 
+            JOIN sub_kriteria ON penilaian.id_sub_kriteria=sub_kriteria.id_sub_kriteria 
     		JOIN kriteria ON penilaian.id_kriteria=kriteria.id_kriteria 
     		WHERE penilaian.id_kriteria='$id_kriteria';");
 

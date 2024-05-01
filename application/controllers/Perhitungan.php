@@ -74,7 +74,8 @@ class Perhitungan extends CI_Controller
         $data['user'] = $this->db->get_where('admin', [
             'email' => $this->session->userdata('email'),
         ])->row_array();
-
+        $data['list_departemen'] = $this->M_Departemen->getDataDepartemen();
+        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar_admin', $data);
         $this->load->view('templates/topbar', $data);
@@ -82,6 +83,7 @@ class Perhitungan extends CI_Controller
         $kriteria = $this->M_Perhitungan->get_kriteria()->result_array();
         $alternatif = $this->M_Perhitungan->get_alternatif();
         $hasil_akhir = $this->M_Perhitungan->get_hasil();
+        
         // $hasil_ = $this->M_Perhitungan->get_hasil_join_alternatif();
         // var_dump($hasil_akhir);
         // exit;
